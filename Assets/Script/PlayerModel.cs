@@ -7,6 +7,7 @@ namespace CliffLeeCL
     /// </summary>
     public class PlayerModel : BaseModel
     {
+        public int id = 1;
         /// <summary>
         /// Define how much the max push force is.
         /// </summary>

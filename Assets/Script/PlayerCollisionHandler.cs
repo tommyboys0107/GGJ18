@@ -6,17 +6,20 @@ namespace CliffLeeCL
 {
     public class PlayerCollisionHandler : MonoBehaviour
     {
+        PlayerControllerMVC controller;
 
-        // Use this for initialization
-        void Start()
+        public PlayerControllerMVC Controller
         {
-
+            set
+            {
+                controller = value;
+            }
         }
 
-        // Update is called once per frame
-        void Update()
+        void OnCollisionEnter2D(Collision2D col)
         {
-
+            if (col.gameObject.CompareTag("Ball"))
+                controller.HandleCollision2D(col);
         }
     }
 }

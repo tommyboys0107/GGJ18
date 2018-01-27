@@ -11,6 +11,7 @@ namespace CliffLeeCL
         public Rigidbody2D playerRigid;
         public GameObject playerCanvasPrefab;
 
+        PlayerCollisionHandler playerCollisionHandler;
         PlayerCanvas playerCanvas;
         float currentPushForce = 0.0f;
 
@@ -20,7 +21,11 @@ namespace CliffLeeCL
         void Start()
         {
             if (playerCanvas == null)
+            {
                 playerCanvas = Instantiate(playerCanvasPrefab, playerTransform).GetComponent<PlayerCanvas>();
+                playerCollisionHandler = playerTransform.gameObject.AddComponent<PlayerCollisionHandler>();
+                playerCollisionHandler.Controller = this;
+            }
         }
 
         /// <summary>
@@ -59,6 +64,22 @@ namespace CliffLeeCL
             }
             currentPushForce = 0.0f;
             model.isRotationSet = false;
+        }
+
+        public void HandleCollision2D(Collision2D col)
+        {
+            ChangePlayer(col.gameObject);
+        }
+
+        void ChangePlayer(GameObject obj)
+        {
+            playerTransform = obj.transform;
+            playerRigid = obj.GetComponent<Rigidbody2D>();
+            playerCanvas.transform.SetParent(playerTransform);
+            playerCanvas.transform.localPosition = Vector3.zero;
+            Destroy(playerCollisionHandler);
+            playerCollisionHandler = playerTransform.gameObject.AddComponent<PlayerCollisionHandler>();
+            playerCollisionHandler.Controller = this;
         }
     }
 }

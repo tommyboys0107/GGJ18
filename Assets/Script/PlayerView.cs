@@ -19,10 +19,6 @@ namespace CliffLeeCL {
         /// </summary>
         void Update()
         {
-            if (!model.isRotationSet)
-            {
-                
-            }
         }
 
         /// <summary>
