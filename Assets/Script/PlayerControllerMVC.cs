@@ -55,8 +55,11 @@ namespace CliffLeeCL
 
         public void Shoot()
         {
-            if(playerRigid != null)
+            if (playerRigid != null)
+            {
+                playerRigid.velocity = Vector2.zero;
                 playerRigid.AddForce(arrowOrigin.right * currentPushForce, ForceMode2D.Impulse);
+            }
             currentPushForce = 0.0f;
             model.isRotationSet = false;
         }
