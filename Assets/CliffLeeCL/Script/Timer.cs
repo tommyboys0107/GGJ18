@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System;
+
 namespace CliffLeeCL
 {
     /// <summary>
@@ -18,10 +20,10 @@ namespace CliffLeeCL
         /// The callback function will be called when time's up.
         /// </summary>
         TimeIsUpHandler timeIsUpHandler;
-		public event Action eventStartCallBack;
-		public event Action eventEndCallBck;
-		//public event Action UIStartCallBack;
-		//public event Action UIEndCallBack;
+        public event Action eventStartCallBack;
+        public event Action eventEndCallBck;
+        //public event Action UIStartCallBack;
+        //public event Action UIEndCallBack;
         /// <summary>
         /// Keep the value of timer's current time.
         /// </summary>
@@ -35,10 +37,11 @@ namespace CliffLeeCL
         {
             get { return currentTime; }
         }
-		private float settime = 0f;
-		public float remainTime{
-			get{return  (settime - currentTime) < 0 ? 0 : (settime - currentTime);}
-		}
+        private float settime = 0f;
+        public float remainTime
+        {
+            get { return (settime - currentTime) < 0 ? 0 : (settime - currentTime); }
+        }
         IEnumerator countDownTimer = null;
         /// <summary>
         /// Whether the timer is started.
@@ -48,7 +51,10 @@ namespace CliffLeeCL
         /// Whether the count down process is repetitive.
         /// </summary>
         bool isCountDownRepetitive = false;
-		bool fir=true;
+        bool fir = true;
+        public List<SmillCount> AllDown = new List<SmillCount>();
+
+
         /// <summary>
         /// Update is called every frame, if the MonoBehaviour is enabled.
         /// </summary>
@@ -58,9 +64,26 @@ namespace CliffLeeCL
             if (isTimerStarted)
             {
                 currentTime += Time.deltaTime;
-                GameControl.Instance._TimeUIControl.setTime(currentTime,settime);
+                GameControl.Instance._TimeUIControl.setTime(currentTime, settime);
 
             }
+            if (AllDown.Count > 0)
+            {
+                for (int count = AllDown.Count-1; count>-1;count--){
+                    if(Time.time >=AllDown[count].EndTime){
+                        if (AllDown[count].EndFunction != null)
+                            AllDown[count].EndFunction();
+                        AllDown.RemoveAt(count);
+                    }
+                }
+            }
+        }
+
+        public void DownTimeListAdd(float time, Action voidFun, bool isRepetitive = false)
+        {
+            //只吃flase bool 
+            AllDown.Insert(0,new SmillCount(Time.time+time,voidFun));
+
         }
 
         /// <summary>
@@ -70,9 +93,9 @@ namespace CliffLeeCL
         /// <seealso cref="StopTimer"/>
         public void StartTimer()
         {
-			//if (StartCallBack != null) {
-				
-			//}
+            //if (StartCallBack != null) {
+
+            //}
             currentTime = 0.0f;
             isTimerStarted = true;
             timeIsUpHandler = null;
@@ -122,15 +145,16 @@ namespace CliffLeeCL
         /// <seealso cref="StopCountDownTimer"/>
         public void StartCountDownTimer(float time, bool isRepetitive = false, params TimeIsUpHandler[] callback)
         {
+            Debug.Log("Down Time : " + time);
             StopCountDownTimer();
-			settime = time;
+            settime = time;
             isTimerStarted = true;
             isCountDownRepetitive = isRepetitive;
             foreach (TimeIsUpHandler listener in callback)
                 timeIsUpHandler += listener;
 
-            if(eventStartCallBack != null)
-			    eventStartCallBack ();
+            if (eventStartCallBack != null)
+                eventStartCallBack();
             countDownTimer = CountDownTimer(time);
             StartCoroutine(countDownTimer);
         }
@@ -162,9 +186,17 @@ namespace CliffLeeCL
 
                 if (timeIsUpHandler != null)
                     timeIsUpHandler();
-				UIControl.Instance.ChangeUI (GameStatus.UIResults);
+                UIControl.Instance.ChangeUI(GameStatus.UIResults);
             } while (isCountDownRepetitive);
             isTimerStarted = false;
         }
+    }
+}
+public class SmillCount{
+    public float EndTime=0f;
+    public Action EndFunction;
+    public SmillCount(float _endtime,Action _EndVoid){
+        EndTime = _endtime;
+        EndFunction = _EndVoid;
     }
 }
