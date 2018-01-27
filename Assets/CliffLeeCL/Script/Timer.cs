@@ -157,7 +157,7 @@ namespace CliffLeeCL
 
                 if (timeIsUpHandler != null)
                     timeIsUpHandler();
-				//UIControl.Instance.ChangeUI (GameStatus.EndUI);
+				UIControl.Instance.ChangeUI (GameStatus.UIResults);
             } while (isCountDownRepetitive);
             isTimerStarted = false;
         }

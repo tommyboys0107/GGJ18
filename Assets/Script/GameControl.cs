@@ -7,6 +7,9 @@ using System;
 public enum GameStatus{
 	UIMainMenu,
 	UISelect,
+	UIResults,
+	UIScores,
+	UITimer,
 	//GameUI,
 	//EndUI,
 }
@@ -121,8 +124,6 @@ public class UIControl:Singleton<UIControl>{
 
 	private GameStatus nowpoen= GameStatus.UIMainMenu;
 
-
-
 	public void _init (){
 		if (GameObject.Find ("RootUI") != null)
 			_rootUI = GameObject.Find ("RootUI");
@@ -156,10 +157,98 @@ public class UIControl:Singleton<UIControl>{
 	}
 
 }
+public enum MusicTypeChose{
+	MainSound,
+	GameStartSound,
+	RomanceSound,
+	EndGameSound,
+	PeaceEndSound,
+
+	
+	ClickSound,
+
+	ReadySound,
+	ShareYouLove,
+	YouWin,
+	LovePeace, 
+
+	SavePowerSound,
+	SpeedShotSound,
+	ColliderSound,
+	ColliderKissSound,
+	ColliderWallSound,
+	PlayerHitPlayerSound,
+
+	FivesSound,
+
+	StartGameThreeSound,
+
+	GameStopMusic,
+}
 
 public class MusicControal:Singleton<MusicControal>{
-	public void _init(){
 
+	Dictionary<MusicTypeChose,AudioClip> GameAllMusic=new Dictionary<MusicTypeChose,AudioClip>();
+	public void _init(){
+		GameAllMusic.Add(MusicTypeChose.MainSound,GameControl.Instance.MainSound);
+		GameAllMusic.Add(MusicTypeChose.GameStartSound,GameControl.Instance.GameStartSound);
+		GameAllMusic.Add(MusicTypeChose.RomanceSound,GameControl.Instance.RomanceSound);
+		GameAllMusic.Add(MusicTypeChose.EndGameSound,GameControl.Instance.EndGameSound);
+		GameAllMusic.Add(MusicTypeChose.PeaceEndSound,GameControl.Instance.PeaceEndSound);
+		
+		GameAllMusic.Add(MusicTypeChose.ClickSound,GameControl.Instance.ClickSound);
+		
+		GameAllMusic.Add(MusicTypeChose.ReadySound,GameControl.Instance.ReadySound);
+		GameAllMusic.Add(MusicTypeChose.ShareYouLove,GameControl.Instance.ShareYouLove);
+		GameAllMusic.Add(MusicTypeChose.YouWin,GameControl.Instance.YouWin);
+		GameAllMusic.Add(MusicTypeChose.LovePeace,GameControl.Instance.LovePeace);
+	
+		GameAllMusic.Add(MusicTypeChose.SavePowerSound,GameControl.Instance.SavePowerSound);
+		GameAllMusic.Add(MusicTypeChose.SpeedShotSound,GameControl.Instance.SpeedShotSound);
+		GameAllMusic.Add(MusicTypeChose.ColliderSound,GameControl.Instance.ColliderSound);
+		GameAllMusic.Add(MusicTypeChose.ColliderKissSound,GameControl.Instance.ColliderKissSound);
+		GameAllMusic.Add(MusicTypeChose.ColliderWallSound,GameControl.Instance.ColliderWallSound);
+		GameAllMusic.Add(MusicTypeChose.PlayerHitPlayerSound,GameControl.Instance.PlayerHitPlayerSound);
+	
+		GameAllMusic.Add(MusicTypeChose.FivesSound,GameControl.Instance.FivesSound);
+	
+		GameAllMusic.Add(MusicTypeChose.StartGameThreeSound,GameControl.Instance.StartGameThreeSound);
+	
+		GameAllMusic.Add(MusicTypeChose.GameStopMusic,GameControl.Instance.GameStopMusic);
+		
+	}
+	public void PlayerSounder(MusicTypeChose mosiutype){
+		switch (mosiutype)
+		{
+			case MusicTypeChose.MainSound:
+			case MusicTypeChose.GameStartSound:
+			case MusicTypeChose.RomanceSound:
+			case MusicTypeChose.EndGameSound:
+			case MusicTypeChose.PeaceEndSound:
+			break;
+			case MusicTypeChose.ClickSound:
+			break;
+			case MusicTypeChose.ReadySound:
+			case MusicTypeChose.ShareYouLove:
+			case MusicTypeChose.YouWin:
+			case MusicTypeChose.LovePeace:
+			break;
+			case MusicTypeChose.SavePowerSound:
+			case MusicTypeChose.SpeedShotSound:
+			case MusicTypeChose.ColliderSound:
+			case MusicTypeChose.ColliderKissSound:
+			case MusicTypeChose.ColliderWallSound:
+			case MusicTypeChose.PlayerHitPlayerSound:
+			break;
+			case MusicTypeChose.FivesSound:
+			break;
+			case MusicTypeChose.StartGameThreeSound:
+			break;
+			case MusicTypeChose.GameStopMusic:
+			break;
+			Default:
+			break;
+		}
 	}
 }
 
