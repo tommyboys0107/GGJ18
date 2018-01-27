@@ -125,7 +125,8 @@ namespace CliffLeeCL
             foreach (TimeIsUpHandler listener in callback)
                 timeIsUpHandler += listener;
 
-			eventStartCallBack ();
+            if(eventStartCallBack != null)
+			    eventStartCallBack ();
             countDownTimer = CountDownTimer(time);
             StartCoroutine(countDownTimer);
         }

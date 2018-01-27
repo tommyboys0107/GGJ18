@@ -12,8 +12,10 @@ namespace CliffLeeCL
         public GameObject playerCanvasPrefab;
 
         Ball ball;
+        Ball oldBall;
         PlayerCollisionHandler playerCollisionHandler;
         PlayerCanvas playerCanvas;
+        Timer collisionTimer;
         float currentPushForce = 0.0f;
 
         /// <summary>
@@ -23,6 +25,7 @@ namespace CliffLeeCL
         {
             if (playerCanvas == null)
             {
+                collisionTimer = gameObject.AddComponent<Timer>();
                 playerCanvas = Instantiate(playerCanvasPrefab, playerTransform).GetComponent<PlayerCanvas>();
                 playerCollisionHandler = playerTransform.gameObject.AddComponent<PlayerCollisionHandler>();
                 playerCollisionHandler.Controller = this;
@@ -77,49 +80,64 @@ namespace CliffLeeCL
         {
             Ball objBall = obj.GetComponent<Ball>();
 
-            if (objBall.BallTypeProperty != Ball.BallType.PLAYER1 && objBall.BallTypeProperty != Ball.BallType.PLAYER2)
+            if (objBall != oldBall)
             {
-                playerTransform = obj.transform;
-                playerRigid = obj.GetComponent<Rigidbody2D>();
-                playerCanvas.transform.SetParent(playerTransform);
-                playerCanvas.transform.localPosition = Vector3.zero;
-                Destroy(playerCollisionHandler);
-                playerCollisionHandler = playerTransform.gameObject.AddComponent<PlayerCollisionHandler>();
-                playerCollisionHandler.Controller = this;
+                if (model.id == 1)
+                    switch (objBall.BallTypeProperty)
+                    {
+                        case Ball.BallType.NONE:
+                        case Ball.BallType.PLAYER1ALLY:
+                        case Ball.BallType.PLAYER2ALLY:
+                            ChangeOwner(obj);
+                            ball.BallTypeProperty = Ball.BallType.PLAYER1ALLY;
+                            objBall.BallTypeProperty = Ball.BallType.PLAYER1;
+                            oldBall = ball;
+                            ball = objBall;
+                            break;
+                        case Ball.BallType.PLAYER2:
+                            break;
+                        default:
+                            break;
+                    }
+                else if (model.id == 2)
+                    switch (objBall.BallTypeProperty)
+                    {
+                        case Ball.BallType.NONE:
+                        case Ball.BallType.PLAYER1ALLY:
+                        case Ball.BallType.PLAYER2ALLY:
+                            ChangeOwner(obj);
+                            ball.BallTypeProperty = Ball.BallType.PLAYER2ALLY;
+                            objBall.BallTypeProperty = Ball.BallType.PLAYER2;
+                            oldBall = ball;
+                            ball = objBall;
+                            break;
+                        case Ball.BallType.PLAYER1:
+                            break;
+                        default:
+                            break;
+
+                    }
             }
+            else
+            {
+                collisionTimer.StartCountDownTimer(0.1f, false, OnTimeIsUp);
+            }
+        }
 
-            if (model.id == 1)
-                switch (objBall.BallTypeProperty)
-                {
-                    case Ball.BallType.NONE:
-                    case Ball.BallType.PLAYER1ALLY:
-                    case Ball.BallType.PLAYER2ALLY:
-                        ball.BallTypeProperty = Ball.BallType.PLAYER1ALLY;
-                        objBall.BallTypeProperty = Ball.BallType.PLAYER1;
-                        ball = objBall;
-                        break;
-                    case Ball.BallType.PLAYER2:
-                        break;
-                    default:
-                        break;
-                }
-            else if (model.id == 2)
-                switch (objBall.BallTypeProperty)
-                {
-                    case Ball.BallType.NONE:
-                    case Ball.BallType.PLAYER1ALLY:
-                    case Ball.BallType.PLAYER2ALLY:
-                        ball.BallTypeProperty = Ball.BallType.PLAYER2ALLY;
-                        objBall.BallTypeProperty = Ball.BallType.PLAYER2;
-                        ball = objBall;
-                        break;
-                    case Ball.BallType.PLAYER1:
-                        break;
-                    default:
-                        break;
-                }
+        void ChangeOwner(GameObject obj)
+        {
+            playerTransform = obj.transform;
+            playerRigid = obj.GetComponent<Rigidbody2D>();
+            playerCanvas.transform.SetParent(playerTransform);
+            playerCanvas.transform.localPosition = Vector3.zero;
+            Destroy(playerCollisionHandler);
+            playerCollisionHandler = playerTransform.gameObject.AddComponent<PlayerCollisionHandler>();
+            playerCollisionHandler.Controller = this;
+        }
 
-            
+        void OnTimeIsUp()
+        {
+            oldBall = null;
         }
     }
 }
