@@ -18,7 +18,8 @@ namespace CliffLeeCL
         /// The callback function will be called when time's up.
         /// </summary>
         TimeIsUpHandler timeIsUpHandler;
-		public event Action StartCallBack;
+		public event Action eventStartCallBack;
+		public event Action eventEndCallBck;
 		//public event Action UIStartCallBack;
 		//public event Action UIEndCallBack;
         /// <summary>
@@ -34,7 +35,10 @@ namespace CliffLeeCL
         {
             get { return currentTime; }
         }
-
+		private float settime = 0f;
+		public float remainTime{
+			get{return  (settime - currentTime) < 0 ? 0 : (settime - currentTime);}
+		}
         IEnumerator countDownTimer = null;
         /// <summary>
         /// Whether the timer is started.
@@ -93,9 +97,6 @@ namespace CliffLeeCL
             if (isTimerStarted)
             {
                 isTimerStarted = false;
-				Debug.Log ("s");
-
-
                 if (timeIsUpHandler != null)
                 {
                     timeIsUpHandler();
@@ -118,12 +119,13 @@ namespace CliffLeeCL
         public void StartCountDownTimer(float time, bool isRepetitive = false, params TimeIsUpHandler[] callback)
         {
             StopCountDownTimer();
+			settime = time;
             isTimerStarted = true;
             isCountDownRepetitive = isRepetitive;
             foreach (TimeIsUpHandler listener in callback)
                 timeIsUpHandler += listener;
 
-			StartCallBack ();
+			eventStartCallBack ();
             countDownTimer = CountDownTimer(time);
             StartCoroutine(countDownTimer);
         }
