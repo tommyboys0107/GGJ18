@@ -54,6 +54,7 @@ GameObject:
   - component: {fileID: 4336705442242492}
   - component: {fileID: 50631999082752252}
   - component: {fileID: 58864685271426182}
+  - component: {fileID: 114692868343260636}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Ball
@@ -334,7 +335,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1247413161799812}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.74, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4412647444616724}
@@ -393,6 +394,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114692868343260636
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1189418001390992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58d3c065ce36f464c88c912252533f7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ballTpye: 1
+  ballSprite: {fileID: 212048461368488794}
 --- !u!198 &198059768766163722
 ParticleSystem:
   m_ObjectHideFlags: 1
