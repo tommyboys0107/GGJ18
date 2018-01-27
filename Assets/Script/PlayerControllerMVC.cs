@@ -11,12 +11,14 @@ namespace CliffLeeCL
     {   
         public Transform playerTransform;
         public Rigidbody2D playerRigid;
+        public RectTransform arrow;
 
         /// <summary>
         /// Start is called once on the frame when a script is enabled.
         /// </summary>
         void Start()
         {
+            
         }
 
         /// <summary>
@@ -24,6 +26,8 @@ namespace CliffLeeCL
         /// </summary>
         void Update()
         {
+            if (!model.isRotationSet)
+                arrow.transform.Rotate(0.0f, 0.0f, model.angularSpeed * Time.deltaTime, Space.Self);
         }
 
         /// <summary>
@@ -36,17 +40,12 @@ namespace CliffLeeCL
         
         public void SetRotation()
         {
-
-        }
-
-        public void SetForce()
-        {
-
+            model.isRotationSet = true;
         }
 
         public void Shoot()
         {
-
+            model.isRotationSet = false;
         }
     }
 }

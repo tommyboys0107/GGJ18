@@ -20,5 +20,6 @@ namespace CliffLeeCL
         /// The time the player will be stop after colliding with another player.
         /// </summary>
         public float stopTime = 0.5f;
+        public bool isRotationSet = false;
     }
 }
