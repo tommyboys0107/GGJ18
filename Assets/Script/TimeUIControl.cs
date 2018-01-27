@@ -68,7 +68,9 @@ public class TimeUIControl : MonoBehaviour {
         ResetUI();
     }
     IEnumerator timedown(){
+        if(A!=null)
         A.StMo();
+        if(B!=null)
         B.StMo();
         yield return new WaitForSeconds(1);
 
