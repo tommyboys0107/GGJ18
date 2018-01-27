@@ -6,6 +6,8 @@ using UnityEngine;
 namespace CliffLeeCL {
     public class PlayerView : BaseView<PlayerModel, PlayerControllerMVC>
     {
+        bool isRotationSet = false;
+
         /// <summary>
         /// Start is called once on the frame when a script is enabled.
         /// </summary>
@@ -25,6 +27,16 @@ namespace CliffLeeCL {
         /// </summary>
         void FixedUpdate()
         {
+        }
+
+        void InputTap()
+        {
+            if (isRotationSet)
+                controller.SetForce();
+            else
+                controller.SetRotation();
+ 
+            isRotationSet = !isRotationSet;
         }
     }
 }

@@ -34,17 +34,17 @@ namespace CliffLeeCL
 
         }
         
-        void SetRotation()
+        public void SetRotation()
         {
 
         }
 
-        void SetForce()
+        public void SetForce()
         {
 
         }
 
-        void Shoot()
+        public void Shoot()
         {
 
         }
