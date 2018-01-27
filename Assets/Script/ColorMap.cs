@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ColorMap : MonoBehaviour {
+    public static Color None;
     public static Color Player1;
     public static Color Player1Ally;
     public static Color Player2;
     public static Color Player2Ally;
 
+    public Color none;
     public Color player1;
     public Color player1Ally;
     public Color player2;
@@ -15,6 +17,7 @@ public class ColorMap : MonoBehaviour {
 
     void Awake()
     {
+        None = none;
         Player1 = player1;
         Player1Ally = player1Ally;
         Player2 = player2;
