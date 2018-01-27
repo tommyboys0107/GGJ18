@@ -11,6 +11,7 @@ namespace CliffLeeCL
     {   
         public Transform playerTransform;
         public Rigidbody2D playerRigid;
+        public GameObject playerCanvas;
         public RectTransform arrow;
 
         /// <summary>
@@ -45,7 +46,12 @@ namespace CliffLeeCL
 
         public void Shoot()
         {
+            if(playerRigid != null)
+            {
+                //playerRigid.AddForce()
+            }
             model.isRotationSet = false;
+            print("Tap");
         }
     }
 }

@@ -6,7 +6,6 @@ using UnityEngine;
 namespace CliffLeeCL {
     public class PlayerView : BaseView<PlayerModel, PlayerControllerMVC>
     {
-        
 
         /// <summary>
         /// Start is called once on the frame when a script is enabled.
