@@ -73,13 +73,16 @@ namespace CliffLeeCL
 
         void ChangePlayer(GameObject obj)
         {
-            playerTransform = obj.transform;
-            playerRigid = obj.GetComponent<Rigidbody2D>();
-            playerCanvas.transform.SetParent(playerTransform);
-            playerCanvas.transform.localPosition = Vector3.zero;
-            Destroy(playerCollisionHandler);
-            playerCollisionHandler = playerTransform.gameObject.AddComponent<PlayerCollisionHandler>();
-            playerCollisionHandler.Controller = this;
+            if (obj.GetComponent<PlayerCollisionHandler>() == null)
+            {
+                playerTransform = obj.transform;
+                playerRigid = obj.GetComponent<Rigidbody2D>();
+                playerCanvas.transform.SetParent(playerTransform);
+                playerCanvas.transform.localPosition = Vector3.zero;
+                Destroy(playerCollisionHandler);
+                playerCollisionHandler = playerTransform.gameObject.AddComponent<PlayerCollisionHandler>();
+                playerCollisionHandler.Controller = this;
+            }
         }
     }
 }
