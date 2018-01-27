@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System;
 namespace CliffLeeCL
 {
     /// <summary>
@@ -18,7 +18,9 @@ namespace CliffLeeCL
         /// The callback function will be called when time's up.
         /// </summary>
         TimeIsUpHandler timeIsUpHandler;
-
+		public event Action StartCallBack;
+		//public event Action UIStartCallBack;
+		//public event Action UIEndCallBack;
         /// <summary>
         /// Keep the value of timer's current time.
         /// </summary>
@@ -42,12 +44,13 @@ namespace CliffLeeCL
         /// Whether the count down process is repetitive.
         /// </summary>
         bool isCountDownRepetitive = false;
-
+		bool fir=true;
         /// <summary>
         /// Update is called every frame, if the MonoBehaviour is enabled.
         /// </summary>
         void Update()
         {
+
             if (isTimerStarted)
                 currentTime += Time.deltaTime;
         }
@@ -59,6 +62,9 @@ namespace CliffLeeCL
         /// <seealso cref="StopTimer"/>
         public void StartTimer()
         {
+			//if (StartCallBack != null) {
+				
+			//}
             currentTime = 0.0f;
             isTimerStarted = true;
             timeIsUpHandler = null;
@@ -87,13 +93,20 @@ namespace CliffLeeCL
             if (isTimerStarted)
             {
                 isTimerStarted = false;
+				Debug.Log ("s");
+
+
                 if (timeIsUpHandler != null)
                 {
                     timeIsUpHandler();
                     timeIsUpHandler = null;
                 }
+
+
             }
         }
+
+
 
         /// <summary>
         /// Start the count down timer and set the callback functions.
@@ -109,7 +122,8 @@ namespace CliffLeeCL
             isCountDownRepetitive = isRepetitive;
             foreach (TimeIsUpHandler listener in callback)
                 timeIsUpHandler += listener;
- 
+
+			StartCallBack ();
             countDownTimer = CountDownTimer(time);
             StartCoroutine(countDownTimer);
         }
@@ -141,6 +155,7 @@ namespace CliffLeeCL
 
                 if (timeIsUpHandler != null)
                     timeIsUpHandler();
+				//UIControl.Instance.ChangeUI (GameStatus.EndUI);
             } while (isCountDownRepetitive);
             isTimerStarted = false;
         }
