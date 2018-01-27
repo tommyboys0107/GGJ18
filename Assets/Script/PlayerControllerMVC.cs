@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine.Assertions;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CliffLeeCL
 {
@@ -12,7 +13,10 @@ namespace CliffLeeCL
         public Transform playerTransform;
         public Rigidbody2D playerRigid;
         public GameObject playerCanvas;
-        public RectTransform arrow;
+        public RectTransform arrowOrigin;
+        public Image arrowFilled;
+
+        float currentPushForce = 0.0f;
 
         /// <summary>
         /// Start is called once on the frame when a script is enabled.
@@ -28,7 +32,12 @@ namespace CliffLeeCL
         void Update()
         {
             if (!model.isRotationSet)
-                arrow.transform.Rotate(0.0f, 0.0f, model.angularSpeed * Time.deltaTime, Space.Self);
+                arrowOrigin.transform.Rotate(0.0f, 0.0f, model.angularSpeed * Time.deltaTime, Space.Self);
+            else
+            {
+                currentPushForce = Mathf.Min((currentPushForce + model.gainForceSpeed * Time.deltaTime), model.maxPushForce);
+                arrowFilled.fillAmount = currentPushForce / model.maxPushForce;
+            }
         }
 
         /// <summary>
@@ -47,11 +56,9 @@ namespace CliffLeeCL
         public void Shoot()
         {
             if(playerRigid != null)
-            {
-                //playerRigid.AddForce()
-            }
+                playerRigid.AddForce(arrowOrigin.right * currentPushForce, ForceMode2D.Impulse);
+            currentPushForce = 0.0f;
             model.isRotationSet = false;
-            print("Tap");
         }
     }
 }

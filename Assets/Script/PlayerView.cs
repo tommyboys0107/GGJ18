@@ -32,7 +32,7 @@ namespace CliffLeeCL {
         {
         }
 
-        void InputTap()
+        public void InputTap()
         {
             if (model.isRotationSet)
                 controller.Shoot();

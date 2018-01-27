@@ -11,6 +11,7 @@ namespace CliffLeeCL
         /// Define how much the max push force is.
         /// </summary>
         public float maxPushForce = 10.0f;
+        public float gainForceSpeed = 60.0f;
         /// <summary>
         /// Define how fast the player rotates.
         /// </summary>
