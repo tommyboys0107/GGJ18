@@ -14,6 +14,14 @@ public enum GameStatus{
 	//EndUI,
 }
 
+public enum GamePlayS{
+    MainG,
+    WaitG,
+    PlayG,
+    EndG,
+    FightG,
+}
+
 public class GameControl :  SingletonMono<GameControl>{
 
 	[Header("BGM Music")]
@@ -52,6 +60,9 @@ public class GameControl :  SingletonMono<GameControl>{
 	
 
 	public Timer GameTime;
+    public TimeUIControl _TimeUIControl;
+    public SourscUI _SourscUI;
+
 
 	void Awake(){
 		UIControl.Instance._init ();
@@ -63,15 +74,17 @@ public class GameControl :  SingletonMono<GameControl>{
 		GameTime=this.gameObject.GetComponent<Timer> ();
 	}
 
-
+    public void Fight(){
+        GameTime.StartCountDownTimer(30f, false, gamedatavoid);
+    }
 
 	// Use this for initialization
 	void Start () {
 		GameTime.eventStartCallBack += tt2;
 		GameTime.eventEndCallBck += tt;
 	}
-	bool fir=true;
-	bool startInto=false;
+    public bool fir=false;
+	//bool startInto=false;
 
 	float gamedataf=0;
 	Timer.TimeIsUpHandler[] gamedatavoid;
@@ -80,25 +93,31 @@ public class GameControl :  SingletonMono<GameControl>{
 		if (Input.GetKeyDown (KeyCode.G)) {
 			UIControl.Instance.ChangeUI (GameStatus.UISelect);
 		}
-		if (fir) {
-			fir = false;
-			StartOnePlayer (3, new Timer.TimeIsUpHandler[]{tt});
-		}
-		if (startInto) {
-			startInto = false;
-			StartCoroutine (st (3, gamedataf, gamedatavoid));
-		}
+		//if (startInto) {
+		//	startInto = false;
+		//	StartCoroutine (st (3, gamedataf, gamedatavoid));
+		//}
 		//Debug.Log (GameTime.remainTime);
 	}
+    public void C(){
+        StartCoroutine(StartOnePlayer(3, new Timer.TimeIsUpHandler[] { tt }));
+    }
+    IEnumerator StartOnePlayer(float Detim,Timer.TimeIsUpHandler[] data ){
+        gamedataf = Detim;
+        gamedatavoid = data;
+        float addtime=0f;
+        Debug.Log("Detim");
+        while (Detim >= addtime){
+            yield return new WaitForEndOfFrame();
+            addtime += Time.deltaTime;
+            _TimeUIControl.DownTime(addtime);
+            //addtime += Time.deltaTime;
+        }
 
-	public void StartOnePlayer(float ftime,Timer.TimeIsUpHandler[] enffun){
-		//UIControl.Instance.ChangeUI (GameStatus.GameUI);
-		gamedataf=ftime;
-		gamedatavoid = enffun;
-		startInto = true;
-		//StartCoroutine (st (3, ftime, enffun));
+        yield return new WaitForEndOfFrame();
+        //GameTime.StartCountDownTimer(30f, false, data);
+    }
 
-	}
 	IEnumerator st(float waittime,float ftime,Timer.TimeIsUpHandler[] enffun){
 		yield return new WaitForSeconds (waittime);
 		GameTime.StartCountDownTimer (ftime, false, enffun);
@@ -108,11 +127,17 @@ public class GameControl :  SingletonMono<GameControl>{
 	}
 
 	void tt2(){
-		Debug.Log ("eff");
+        Debug.Log("start");
 	}
 	void tt(){
-		Debug.Log ("endff");
+		Debug.Log ("end");
 	}
+
+    public void GameEnd(int Player1Point,int Player2Point){
+        UIControl.Instance.ChangeUI(GameStatus.UIScores);
+        _SourscUI.SetTime(1,Player1Point);
+        _SourscUI.SetTime(2, Player2Point);
+    }
 }
 
 
@@ -124,19 +149,28 @@ public class UIControl:Singleton<UIControl>{
 
 	private GameStatus nowpoen= GameStatus.UIMainMenu;
 
+    private List<GameStatus> NotDefaultOpenUI = new List<GameStatus>();
+
 	public void _init (){
 		if (GameObject.Find ("RootUI") != null)
 			_rootUI = GameObject.Find ("RootUI");
 		else
 			_rootUI=GameObject.Instantiate (Resources.Load ("RootUI")as GameObject);
 
-		foreach(GameStatus name in Enum.GetValues(typeof(GameStatus))){
-			Debug.Log (name.ToString());
-			if (_rootUI.transform.GetChild(0).Find (name.ToString()) != null)
-				ScreenUI.Add (name,_rootUI.transform.GetChild(0).Find (name.ToString()).gameObject);
-			else
-				ScreenUI.Add (name,GameObject.Instantiate(Resources.Load("UI/"+name.ToString()),_rootUI.transform.GetChild(0))as GameObject);
-		}
+        foreach (GameStatus name in Enum.GetValues(typeof(GameStatus)))
+        {
+           
+            if (_rootUI.transform.GetChild(0).Find(name.ToString()) != null)
+            {
+                ScreenUI.Add(name, _rootUI.transform.GetChild(0).Find(name.ToString()).gameObject);
+                Debug.Log(name.ToString()+" Fir");
+            }
+            else
+            {
+                ScreenUI.Add(name, GameObject.Instantiate(Resources.Load("UI/" + name.ToString()), _rootUI.transform.GetChild(0)) as GameObject);
+                Debug.Log(name.ToString() + " Sec");
+            }
+        }
 		foreach (KeyValuePair<GameStatus,GameObject> UI in ScreenUI) {
 			UI.Value.SetActive (false);
 		}
@@ -147,15 +181,62 @@ public class UIControl:Singleton<UIControl>{
 
 	public void ChangeUI(GameStatus _nextStatus){
 		if (ScreenUI.ContainsKey (_nextStatus)) {
+            //Debug.Log("Open :"+_nextStatus );
 			ScreenUI [_nextStatus].SetActive(true);
-			if(_nextStatus!=nowpoen && nowpoen!=null)
-				ScreenUI [nowpoen].SetActive(false);
+            if(NotDefaultOpenUI!=null && NotDefaultOpenUI.Count>0){
+                foreach(var a in NotDefaultOpenUI){
+                    ScreenUI[a].SetActive(false);
+                }
+                NotDefaultOpenUI.Clear();
+            }
+            if (_nextStatus != nowpoen)
+            {
+                ScreenUI[nowpoen].SetActive(false);
+                //Debug.Log("Close :" + nowpoen);
+                nowpoen = _nextStatus;
+            }
 			//if(_nextStatus!=nowpoen)
 				//nowpoen = _nextStatus;
 			Debug.Log (string.Format("Open UI : {0}",_nextStatus.ToString()));
 		}
+
 	}
 
+    public void OpenOneUI(GameStatus _nextStatus){
+        if (ScreenUI.ContainsKey(_nextStatus))
+        {
+            ScreenUI[_nextStatus].SetActive(true);
+            NotDefaultOpenUI.Add(_nextStatus);
+        }
+    }
+
+    public void GameSetting(GamePlayS Ga){
+        Debug.Log(Ga);
+        switch (Ga)
+        {
+            case GamePlayS.MainG:
+                
+                break;
+            case GamePlayS.WaitG:
+                
+                break;
+            case GamePlayS.PlayG:
+                GameControl.Instance.C();
+                break;
+            case GamePlayS.EndG:
+                
+                break;
+            case GamePlayS.FightG:
+               
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void GamePlayStart(){
+        
+    }
 }
 public enum MusicTypeChose{
 	MainSound,
@@ -246,7 +327,7 @@ public class MusicControal:Singleton<MusicControal>{
 			break;
 			case MusicTypeChose.GameStopMusic:
 			break;
-			Default:
+			default:
 			break;
 		}
 	}

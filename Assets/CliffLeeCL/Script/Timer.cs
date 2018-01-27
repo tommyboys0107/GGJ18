@@ -56,7 +56,11 @@ namespace CliffLeeCL
         {
 
             if (isTimerStarted)
+            {
                 currentTime += Time.deltaTime;
+                GameControl.Instance._TimeUIControl.setTime(currentTime,settime);
+
+            }
         }
 
         /// <summary>
