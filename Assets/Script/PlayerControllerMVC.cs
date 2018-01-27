@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using UnityEngine.Assertions;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 namespace CliffLeeCL
 {
@@ -12,10 +9,9 @@ namespace CliffLeeCL
     {   
         public Transform playerTransform;
         public Rigidbody2D playerRigid;
-        public GameObject playerCanvas;
-        public RectTransform arrowOrigin;
-        public Image arrowFilled;
+        public GameObject playerCanvasPrefab;
 
+        PlayerCanvas playerCanvas;
         float currentPushForce = 0.0f;
 
         /// <summary>
@@ -23,7 +19,8 @@ namespace CliffLeeCL
         /// </summary>
         void Start()
         {
-            
+            if (playerCanvas == null)
+                playerCanvas = Instantiate(playerCanvasPrefab, playerTransform).GetComponent<PlayerCanvas>();
         }
 
         /// <summary>
@@ -32,11 +29,11 @@ namespace CliffLeeCL
         void Update()
         {
             if (!model.isRotationSet)
-                arrowOrigin.transform.Rotate(0.0f, 0.0f, model.angularSpeed * Time.deltaTime, Space.Self);
+                playerCanvas.arrowOrigin.transform.Rotate(0.0f, 0.0f, model.angularSpeed * Time.deltaTime, Space.Self);
             else
             {
                 currentPushForce = Mathf.Min((currentPushForce + model.gainForceSpeed * Time.deltaTime), model.maxPushForce);
-                arrowFilled.fillAmount = currentPushForce / model.maxPushForce;
+                playerCanvas.arrowFilled.fillAmount = currentPushForce / model.maxPushForce;
             }
         }
 
@@ -58,7 +55,7 @@ namespace CliffLeeCL
             if (playerRigid != null)
             {
                 playerRigid.velocity = Vector2.zero;
-                playerRigid.AddForce(arrowOrigin.right * currentPushForce, ForceMode2D.Impulse);
+                playerRigid.AddForce(playerCanvas.arrowOrigin.right * currentPushForce, ForceMode2D.Impulse);
             }
             currentPushForce = 0.0f;
             model.isRotationSet = false;
