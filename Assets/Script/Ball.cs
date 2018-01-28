@@ -11,8 +11,10 @@ public class Ball : MonoBehaviour {
         PLAYER2ALLY = 4
     }
     public SpriteRenderer ballSprite;
-
     public BallType ballType = BallType.NONE;
+
+    Animator animator = null;
+
     public BallType BallTypeProperty
     {
         get
@@ -26,12 +28,21 @@ public class Ball : MonoBehaviour {
         }
     }
 
+    void Awake()
+    {
+        if(animator == null)
+        {
+            animator = gameObject.GetComponentInChildren<Animator>();
+        }
+    }
+
     void Start()
     {
         UpdateBallColor();
+        UpdateBallFace();
     }
 
-    void UpdateBallColor()
+    public void UpdateBallColor()
     {
         switch (ballType)
         {
@@ -54,5 +65,35 @@ public class Ball : MonoBehaviour {
                 Debug.LogError("Undefined ball type!");
                 break;
         }
+    }
+
+    public void UpdateBallFace()
+    {
+        switch (ballType)
+        {
+            case BallType.NONE:
+                animator.SetInteger("intFaceControl", 0);
+                break;
+            case BallType.PLAYER1:
+                animator.SetInteger("intFaceControl", 1);
+                break;
+            case BallType.PLAYER1ALLY:
+                animator.SetInteger("intFaceControl", 0);
+                break;
+            case BallType.PLAYER2:
+                animator.SetInteger("intFaceControl", 2);
+                break;
+            case BallType.PLAYER2ALLY:
+                animator.SetInteger("intFaceControl", 0);
+                break;
+            default:
+                Debug.LogError("Undefined ball type!");
+                break;
+        }
+    }
+
+    public void UpdateBallFaceCollision()
+    {
+        animator.SetTrigger("collide");
     }
 }

@@ -103,6 +103,10 @@ namespace CliffLeeCL
                             ChangeOwner(obj);
                             ball.BallTypeProperty = Ball.BallType.PLAYER1ALLY;
                             objBall.BallTypeProperty = Ball.BallType.PLAYER1;
+                            ball.UpdateBallFace();
+                            objBall.UpdateBallFace();
+                            ball.UpdateBallFaceCollision();
+                            objBall.UpdateBallFaceCollision();
                             oldBall = ball;
                             ball = objBall;
                             break;
@@ -123,6 +127,10 @@ namespace CliffLeeCL
                             ChangeOwner(obj);
                             ball.BallTypeProperty = Ball.BallType.PLAYER2ALLY;
                             objBall.BallTypeProperty = Ball.BallType.PLAYER2;
+                            ball.UpdateBallFace();
+                            objBall.UpdateBallFace();
+                            ball.UpdateBallFaceCollision();
+                            objBall.UpdateBallFaceCollision();
                             oldBall = ball;
                             ball = objBall;
                             break;
