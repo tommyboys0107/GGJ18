@@ -138,7 +138,7 @@ namespace CliffLeeCL
         /// <seealso cref="StopCountDownTimer"/>
         public void StartCountDownTimer(float time, bool isRepetitive = false, params TimeIsUpHandler[] callback)
         {
-            Debug.Log("Down Time : " + time);
+            
             StopCountDownTimer();
             isTimerStarted = true;
             isCountDownRepetitive = isRepetitive;

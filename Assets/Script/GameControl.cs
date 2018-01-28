@@ -149,8 +149,8 @@ public class GameControl : SingletonMono<GameControl> {
 
     public void GameEnd(int Player1Point,int Player2Point){
         UIControl.Instance.ChangeUI(GameStatus.UIScores);
-        _SourscUI.SetTime(1,Player1Point);
-        _SourscUI.SetTime(2, Player2Point);
+        _SourscUI.SetTime(1,Player1Point,Player1Point>Player2Point?true:false);
+        _SourscUI.SetTime(2, Player2Point,Player1Point < Player2Point ? true : false);
     }
 
     void OnRoundTimeIsUp()

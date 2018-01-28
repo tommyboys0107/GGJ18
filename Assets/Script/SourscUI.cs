@@ -6,8 +6,12 @@ using System;
 
 public class SourscUI : MonoBehaviour {
 
+    public Sprite win;
+    public Sprite Lose;
     public Text Scro1;
     public Text Scro2;
+    public Image Scr1;
+    public Image Scr2;
     static string St = "Scro1";
     private void OnEnable()
     {
@@ -32,7 +36,7 @@ public class SourscUI : MonoBehaviour {
         //}
 	}
 
-    public void SetTime(int who ,int point){
+    public void SetTime(int who ,int point,bool bwin){
         switch (who)
         {
             case 1:
