@@ -57,9 +57,9 @@ public class SourscUI : MonoBehaviour {
 
         while (startPo != point)
         {
-            if (Mathf.Abs(point - startPo) < 0.2f)
+            if (Mathf.Abs(point - startPo) < 1.2)
             {
-                who.text = point.ToString("##.##");
+                who.text = point.ToString("##");
                 if (who == Scro1)
                     Check1 = true;
                 else
@@ -69,8 +69,8 @@ public class SourscUI : MonoBehaviour {
             }
             else
             {
-                startPo += 0.1f;
-                who.text = startPo.ToString("##.##");
+                startPo += 1f;
+                who.text = startPo.ToString("##");
             }
             yield return new WaitForEndOfFrame();
         }
