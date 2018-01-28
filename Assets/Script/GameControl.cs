@@ -155,8 +155,27 @@ public class GameControl : SingletonMono<GameControl> {
 
     void OnRoundTimeIsUp()
     {
-        UIControl.Instance.ChangeUI(GameStatus.UIResults);
+        int player1Score = 0;
+        int player2Score = 0;
+
+        ComputePlayerScore(out player1Score, out player2Score);
+        GameEnd(player1Score, player2Score);
         isGameStarted = false;
+    }
+
+    void ComputePlayerScore(out int player1Score, out int player2Score)
+    {
+        Ball[] ball = FindObjectsOfType<Ball>();
+        player1Score = 0;
+        player2Score = 0;
+
+        for (int i = 0; i < ball.Length; i++)
+        {
+            if (ball[i].BallTypeProperty == Ball.BallType.PLAYER1ALLY)
+                player1Score++;
+            else if (ball[i].BallTypeProperty == Ball.BallType.PLAYER2ALLY)
+                player2Score++;
+        }
     }
 }
 
