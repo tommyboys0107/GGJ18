@@ -42,10 +42,19 @@ public class SourscUI : MonoBehaviour {
             case 1:
                 Scro1.text = "0";
                 StartCoroutine(PointUp(Scro1,0,(float)point));
+                if(bwin)
+                    Scr1.sprite = win ;
+                else 
+                    Scr1.sprite = Lose;
                 break;
             case 2:
                 Scro2.text = "0";
                 StartCoroutine(PointUp(Scro2,0,(float)point));
+                if (bwin)
+                    Scr2.sprite = win;
+                else
+                    Scr2.sprite = Lose;
+
                 break;
             default:
                 break;
