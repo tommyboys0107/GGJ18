@@ -37,11 +37,6 @@ namespace CliffLeeCL
         {
             get { return currentTime; }
         }
-        private float settime = 0f;
-        public float remainTime
-        {
-            get { return (settime - currentTime) < 0 ? 0 : (settime - currentTime); }
-        }
         IEnumerator countDownTimer = null;
         /// <summary>
         /// Whether the timer is started.
@@ -64,8 +59,6 @@ namespace CliffLeeCL
             if (isTimerStarted)
             {
                 currentTime += Time.deltaTime;
-                GameControl.Instance._TimeUIControl.setTime(currentTime, settime);
-
             }
             if (AllDown.Count > 0)
             {
@@ -147,7 +140,6 @@ namespace CliffLeeCL
         {
             Debug.Log("Down Time : " + time);
             StopCountDownTimer();
-            settime = time;
             isTimerStarted = true;
             isCountDownRepetitive = isRepetitive;
             foreach (TimeIsUpHandler listener in callback)

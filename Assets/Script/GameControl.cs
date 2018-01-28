@@ -22,47 +22,57 @@ public enum GamePlayS{
     FightG,
 }
 
-public class GameControl :  SingletonMono<GameControl>{
+public class GameControl : SingletonMono<GameControl> {
 
-	[Header("BGM Music")]
-	public AudioClip MainSound;
-	public AudioClip GameStartSound;
-	public AudioClip RomanceSound;
-	public AudioClip EndGameSound;
-	public AudioClip PeaceEndSound;
-	
-	[Header("buttom Music")]
-	public AudioClip ClickSound;
+    [Header("BGM Music")]
+    public AudioClip MainSound;
+    public AudioClip GameStartSound;
+    public AudioClip RomanceSound;
+    public AudioClip EndGameSound;
+    public AudioClip PeaceEndSound;
+
+    [Header("buttom Music")]
+    public AudioClip ClickSound;
 
 
-	[Header("Talk Music")]
-	public AudioClip ReadySound;
-	public AudioClip ShareYouLove;
-	public AudioClip YouWin;
-	public AudioClip LovePeace; 
+    [Header("Talk Music")]
+    public AudioClip ReadySound;
+    public AudioClip ShareYouLove;
+    public AudioClip YouWin;
+    public AudioClip LovePeace;
 
-	[Header("Gmae Play Music")]
-	public AudioClip SavePowerSound;
-	public AudioClip SpeedShotSound;
-	public AudioClip ColliderSound;
-	public AudioClip ColliderKissSound;
-	public AudioClip ColliderWallSound;
-	public AudioClip PlayerHitPlayerSound;
+    [Header("Gmae Play Music")]
+    public AudioClip SavePowerSound;
+    public AudioClip SpeedShotSound;
+    public AudioClip ColliderSound;
+    public AudioClip ColliderKissSound;
+    public AudioClip ColliderWallSound;
+    public AudioClip PlayerHitPlayerSound;
 
-	[Header("剩下五秒 Music")]
-	public AudioClip FivesSound;
+    [Header("剩下五秒 Music")]
+    public AudioClip FivesSound;
 
-	[Header("倒數三秒開始 Music")]
-	public AudioClip StartGameThreeSound;
+    [Header("倒數三秒開始 Music")]
+    public AudioClip StartGameThreeSound;
 
-	[Header("遊戲時間到 Music")]
-	public AudioClip GameStopMusic;
-	
+    [Header("遊戲時間到 Music")]
+    public AudioClip GameStopMusic;
 
-	public Timer GameTime;
+
+    public Timer GameTime;
     public TimeUIControl _TimeUIControl;
     public SourscUI _SourscUI;
+    public float roundTime = 30.0f;
 
+    bool isGameStarted = false;
+
+    public bool IsGameStarted
+    {
+        get
+        {
+            return isGameStarted;
+        }
+    }
 
 	void Awake(){
 		UIControl.Instance._init ();
@@ -75,7 +85,8 @@ public class GameControl :  SingletonMono<GameControl>{
 	}
 
     public void Fight(){
-        GameTime.StartCountDownTimer(30f, false, OnRoundTimeIsUp);
+        isGameStarted = true;
+        GameTime.StartCountDownTimer(roundTime, false, OnRoundTimeIsUp);
     }
 
 	// Use this for initialization
@@ -92,6 +103,11 @@ public class GameControl :  SingletonMono<GameControl>{
 		if (Input.GetKeyDown (KeyCode.G)) {
 			UIControl.Instance.ChangeUI (GameStatus.UISelect);
 		}
+        if (isGameStarted)
+        {
+            _TimeUIControl.setTime(GameTime.CurrentTime, roundTime);
+        }
+
 		//if (startInto) {
 		//	startInto = false;
 		//	StartCoroutine (st (3, gamedataf, gamedatavoid));
@@ -140,6 +156,7 @@ public class GameControl :  SingletonMono<GameControl>{
     void OnRoundTimeIsUp()
     {
         UIControl.Instance.ChangeUI(GameStatus.UIResults);
+        isGameStarted = false;
     }
 }
 

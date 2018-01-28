@@ -94,7 +94,6 @@ namespace CliffLeeCL
                             oldBall = ball;
                             ball = objBall;
                             break;
-                        case Ball.BallType.PLAYER1:
                         case Ball.BallType.PLAYER2:
                             ChangeOwner(obj);
                             oldBall = ball;
@@ -115,7 +114,6 @@ namespace CliffLeeCL
                             oldBall = ball;
                             ball = objBall;
                             break;
-                        case Ball.BallType.PLAYER1:
                         case Ball.BallType.PLAYER2:
                             ChangeOwner(obj);
                             oldBall = ball;
