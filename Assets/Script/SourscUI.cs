@@ -5,13 +5,13 @@ using UnityEngine.UI;
 using System;
 
 public class SourscUI : MonoBehaviour {
-
     public Sprite win;
     public Sprite Lose;
     public Text Scro1;
     public Text Scro2;
     public Image Scr1;
     public Image Scr2;
+    public float scoreRollingSpeed = 10.0f;
     static string St = "Scro1";
     private void OnEnable()
     {
@@ -43,7 +43,7 @@ public class SourscUI : MonoBehaviour {
                 Scro1.text = "0";
                 StartCoroutine(PointUp(Scro1,0,(float)point));
                 if(bwin)
-                    Scr1.sprite = win ;
+                    Scr1.sprite = win;
                 else 
                     Scr1.sprite = Lose;
                 break;
@@ -78,7 +78,7 @@ public class SourscUI : MonoBehaviour {
             }
             else
             {
-                startPo += 1f;
+                startPo += 1f * scoreRollingSpeed * Time.deltaTime;
                 who.text = startPo.ToString("##");
             }
             yield return new WaitForEndOfFrame();

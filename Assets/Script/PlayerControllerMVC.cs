@@ -12,6 +12,8 @@ namespace CliffLeeCL
         public GameObject playerCanvasPrefab;
         public GameObject collisionParticlePrefab;
 
+        Transform initialPlayerTransform;
+        Rigidbody2D initialPlayerRigid;
         Ball ball;
         Ball oldBall;
         PlayerCollisionHandler playerCollisionHandler;
@@ -25,19 +27,20 @@ namespace CliffLeeCL
         /// </summary>
         void Start()
         {
-            if (playerCanvas == null)
-            {
-                collisionTimer = gameObject.AddComponent<Timer>();
-                playerCanvas = Instantiate(playerCanvasPrefab, playerTransform).GetComponent<PlayerCanvas>();
-                playerCollisionHandler = playerTransform.gameObject.AddComponent<PlayerCollisionHandler>();
-                playerCollisionHandler.Controller = this;
-                ball = playerTransform.gameObject.GetComponent<Ball>();
-            }
+            collisionTimer = gameObject.AddComponent<Timer>();
+            Initialize();
         }
 
         void Initialize()
         {
-
+            if (playerCanvas != null)
+                Destroy(playerCanvas);
+            if (playerCollisionHandler != null)
+                Destroy(playerCollisionHandler);
+            playerCanvas = Instantiate(playerCanvasPrefab, playerTransform).GetComponent<PlayerCanvas>();
+            playerCollisionHandler = playerTransform.gameObject.AddComponent<PlayerCollisionHandler>();
+            playerCollisionHandler.Controller = this;
+            ball = playerTransform.gameObject.GetComponent<Ball>();
         }
 
         /// <summary>
