@@ -58,7 +58,7 @@ public class GameControl : SingletonMono<GameControl> {
     [Header("遊戲時間到 Music")]
     public AudioClip GameStopMusic;
 
-
+    public List<AudioSource> AudioAll = new List<AudioSource>();
     public Timer GameTime;
     public TimeUIControl _TimeUIControl;
     public SourscUI _SourscUI;
@@ -115,6 +115,7 @@ public class GameControl : SingletonMono<GameControl> {
 		//Debug.Log (GameTime.remainTime);
 	}
     public void C(){
+        
         StartCoroutine(StartOnePlayer(3.0f));
     }
     IEnumerator StartOnePlayer(float Detim){
@@ -141,9 +142,12 @@ public class GameControl : SingletonMono<GameControl> {
 	}
 
 	void tt2(){
+        MusicControal.Instance.PlayerSounder(MusicTypeChose.RomanceSound);
+
         Debug.Log("start");
 	}
 	void tt(){
+        MusicControal.Instance.PlayerSounder(MusicTypeChose.EndGameSound);
 		Debug.Log ("end");
 	}
 
@@ -234,8 +238,9 @@ public class UIControl:Singleton<UIControl>{
                 //Debug.Log("Close :" + nowpoen);
                 nowpoen = _nextStatus;
             }
-			//if(_nextStatus!=nowpoen)
-				//nowpoen = _nextStatus;
+            //if(_nextStatus!=nowpoen)
+            //nowpoen = _nextStatus;
+            MusicControal.Instance.Playe(_nextStatus);
 			Debug.Log (string.Format("Open UI : {0}",_nextStatus.ToString()));
 		}
 
@@ -338,6 +343,9 @@ public class MusicControal:Singleton<MusicControal>{
 		
 	}
 	public void PlayerSounder(MusicTypeChose mosiutype){
+        AudioClip use = GameAllMusic[mosiutype];
+        if (use == null)
+            return;
 		switch (mosiutype)
 		{
 			case MusicTypeChose.MainSound:
@@ -345,13 +353,19 @@ public class MusicControal:Singleton<MusicControal>{
 			case MusicTypeChose.RomanceSound:
 			case MusicTypeChose.EndGameSound:
 			case MusicTypeChose.PeaceEndSound:
+                GameControl.Instance.AudioAll[0].clip = use;
+                GameControl.Instance.AudioAll[0].Play();
 			break;
 			case MusicTypeChose.ClickSound:
+                GameControl.Instance.AudioAll[1].clip = use;
+                GameControl.Instance.AudioAll[1].Play();
 			break;
 			case MusicTypeChose.ReadySound:
 			case MusicTypeChose.ShareYouLove:
 			case MusicTypeChose.YouWin:
 			case MusicTypeChose.LovePeace:
+                GameControl.Instance.AudioAll[2].clip = use;
+                GameControl.Instance.AudioAll[2].Play();
 			break;
 			case MusicTypeChose.SavePowerSound:
 			case MusicTypeChose.SpeedShotSound:
@@ -359,17 +373,38 @@ public class MusicControal:Singleton<MusicControal>{
 			case MusicTypeChose.ColliderKissSound:
 			case MusicTypeChose.ColliderWallSound:
 			case MusicTypeChose.PlayerHitPlayerSound:
+                GameControl.Instance.AudioAll[3].clip = use;
+                GameControl.Instance.AudioAll[3].Play();
 			break;
 			case MusicTypeChose.FivesSound:
+                GameControl.Instance.AudioAll[4].clip = use;
+                GameControl.Instance.AudioAll[4].Play();
 			break;
 			case MusicTypeChose.StartGameThreeSound:
+                GameControl.Instance.AudioAll[5].clip = use;
+                GameControl.Instance.AudioAll[5].Play();
 			break;
 			case MusicTypeChose.GameStopMusic:
+                GameControl.Instance.AudioAll[6].clip = use;
+                GameControl.Instance.AudioAll[6].Play();
 			break;
 			default:
 			break;
 		}
 	}
+    public void Playe(GameStatus _GameStatus){
+        switch (_GameStatus)
+        {
+            case GameStatus.UIMainMenu:
+                PlayerSounder(MusicTypeChose.MainSound);
+                break;
+            case GameStatus.UIScores:
+                PlayerSounder(MusicTypeChose.PeaceEndSound);
+                break;
+            default:
+                break;
+        }
+    }
 }
 
 public class Point:Singleton<Point>{

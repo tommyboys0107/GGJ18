@@ -79,9 +79,13 @@ public class TimeUIControl : MonoBehaviour {
         //start game
         //ResetUI();
     }
-
+    bool firs = true;
     public void setTime(float Addtime,float MaxTimef){
         float time = (Addtime > MaxTimef)?MaxTimef :Addtime/ MaxTimef;
+        if(firs && MaxTimef-Addtime<5){
+            MusicControal.Instance.PlayerSounder(MusicTypeChose.FivesSound);
+            firs = false;
+        }
         TimeBar.fillAmount = 1-time;
         TimeBar2.fillAmount = 1-time;
     }
