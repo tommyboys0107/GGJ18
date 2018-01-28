@@ -75,10 +75,11 @@ public class GameControl : SingletonMono<GameControl> {
     }
 
 	void Awake(){
-		UIControl.Instance._init ();
-		Point.Instance._init();
+		
 		MusicControal.Instance._init();
-		if (GameTime==null)
+        UIControl.Instance._init();
+        Point.Instance._init();
+        if (GameTime==null)
 			this.gameObject.AddComponent<Timer> ();
 
 		GameTime=this.gameObject.GetComponent<Timer> ();
@@ -115,8 +116,11 @@ public class GameControl : SingletonMono<GameControl> {
 		//Debug.Log (GameTime.remainTime);
 	}
     public void C(){
+        AudioAll[0].Stop();
+        MusicControal.Instance.PlayerSounder(MusicTypeChose.StartGameThreeSound);
         
         StartCoroutine(StartOnePlayer(3.0f));
+        MusicControal.Instance.PlayerSounder(MusicTypeChose.ShareYouLove);
     }
     IEnumerator StartOnePlayer(float Detim){
         gamedataf = Detim;
@@ -323,7 +327,8 @@ public class MusicControal:Singleton<MusicControal>{
 
 	Dictionary<MusicTypeChose,AudioClip> GameAllMusic=new Dictionary<MusicTypeChose,AudioClip>();
 	public void _init(){
-		GameAllMusic.Add(MusicTypeChose.MainSound,GameControl.Instance.MainSound);
+        Debug.Log("w");
+        GameAllMusic.Add(MusicTypeChose.MainSound,GameControl.Instance.MainSound);
 		GameAllMusic.Add(MusicTypeChose.GameStartSound,GameControl.Instance.GameStartSound);
 		GameAllMusic.Add(MusicTypeChose.RomanceSound,GameControl.Instance.RomanceSound);
 		GameAllMusic.Add(MusicTypeChose.EndGameSound,GameControl.Instance.EndGameSound);
@@ -352,10 +357,13 @@ public class MusicControal:Singleton<MusicControal>{
 	}
 	public void PlayerSounder(MusicTypeChose mosiutype){
         AudioClip use = null;
+        Debug.Log(GameAllMusic.ContainsKey(mosiutype));
         if(GameAllMusic.ContainsKey(mosiutype))
              use = GameAllMusic[mosiutype];
         if (use == null)
             return;
+
+       
 		switch (mosiutype)
 		{
 			case MusicTypeChose.MainSound:
