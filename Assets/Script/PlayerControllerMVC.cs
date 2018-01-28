@@ -82,7 +82,7 @@ namespace CliffLeeCL
 
             if (objBall != oldBall)
             {
-                if (model.id == 1)
+                if (ball.BallTypeProperty == Ball.BallType.PLAYER1)
                     switch (objBall.BallTypeProperty)
                     {
                         case Ball.BallType.NONE:
@@ -103,7 +103,7 @@ namespace CliffLeeCL
                         default:
                             break;
                     }
-                else if (model.id == 2)
+                else if (ball.BallTypeProperty == Ball.BallType.PLAYER2)
                     switch (objBall.BallTypeProperty)
                     {
                         case Ball.BallType.NONE:
