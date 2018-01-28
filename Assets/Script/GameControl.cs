@@ -141,6 +141,14 @@ public class GameControl : SingletonMono<GameControl> {
 		UIControl.Instance.ChangeUI (GameStatus.UIMainMenu);
 	}
 
+    public void ToggleMute()
+    {
+        AudioListener listener;
+
+        listener = FindObjectOfType<AudioListener>();
+        listener.enabled = !listener.enabled;
+    }
+
 	void tt2(){
         MusicControal.Instance.PlayerSounder(MusicTypeChose.RomanceSound);
 
