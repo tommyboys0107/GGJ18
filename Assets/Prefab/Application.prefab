@@ -683,7 +683,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1082404232649896
 GameObject:
   m_ObjectHideFlags: 1
@@ -5377,7 +5377,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1764950472901728
 GameObject:
   m_ObjectHideFlags: 1
@@ -16518,7 +16518,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114444364506467108}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114983685229135882}
+        m_MethodName: ToggleMute
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114834845774850762
@@ -17093,6 +17104,7 @@ MonoBehaviour:
   GameTime: {fileID: 0}
   _TimeUIControl: {fileID: 114468929189253288}
   _SourscUI: {fileID: 114200769675493308}
+  musicOff: {fileID: 1402084106816074}
   roundTime: 30
   fir: 0
 --- !u!124 &124480305714824846

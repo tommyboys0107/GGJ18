@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CliffLeeCL;
 using System;
+using UnityEngine.UI;
 
 public enum GameStatus{
 	UIMainMenu,
@@ -62,6 +63,7 @@ public class GameControl : SingletonMono<GameControl> {
     public Timer GameTime;
     public TimeUIControl _TimeUIControl;
     public SourscUI _SourscUI;
+    public GameObject musicOff;
     public float roundTime = 30.0f;
 
     bool isGameStarted = false;
@@ -151,6 +153,7 @@ public class GameControl : SingletonMono<GameControl> {
 
         listener = FindObjectOfType<AudioListener>();
         listener.enabled = !listener.enabled;
+        musicOff.SetActive(!listener.enabled);
     }
 
 	void tt2(){
