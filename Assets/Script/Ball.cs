@@ -76,15 +76,19 @@ public class Ball : MonoBehaviour {
                 break;
             case BallType.PLAYER1:
                 animator.SetInteger("intFaceControl", 1);
+                transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
                 break;
             case BallType.PLAYER1ALLY:
                 animator.SetInteger("intFaceControl", 0);
+                transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
                 break;
             case BallType.PLAYER2:
                 animator.SetInteger("intFaceControl", 2);
+                transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 180.0f);
                 break;
             case BallType.PLAYER2ALLY:
                 animator.SetInteger("intFaceControl", 0);
+                transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 180.0f);
                 break;
             default:
                 Debug.LogError("Undefined ball type!");
