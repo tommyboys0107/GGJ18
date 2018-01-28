@@ -152,46 +152,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114983685229135882, guid: 3990514826da93f4694d11021dde514d,
-        type: 2}
-      propertyPath: MainSound
-      value: 
-      objectReference: {fileID: 8300000, guid: d8c2492430bfdcd4eb19085ac9b314c6, type: 3}
-    - target: {fileID: 114983685229135882, guid: 3990514826da93f4694d11021dde514d,
-        type: 2}
-      propertyPath: GameStartSound
-      value: 
-      objectReference: {fileID: 8300000, guid: a8ba1c35db9f73c4daa55a1992efe004, type: 3}
-    - target: {fileID: 114983685229135882, guid: 3990514826da93f4694d11021dde514d,
-        type: 2}
-      propertyPath: RomanceSound
-      value: 
-      objectReference: {fileID: 8300000, guid: a8ba1c35db9f73c4daa55a1992efe004, type: 3}
-    - target: {fileID: 114983685229135882, guid: 3990514826da93f4694d11021dde514d,
-        type: 2}
-      propertyPath: ClickSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 085f1e396e1a5304ebaca26d638fddc8, type: 3}
-    - target: {fileID: 114983685229135882, guid: 3990514826da93f4694d11021dde514d,
-        type: 2}
-      propertyPath: ShareYouLove
-      value: 
-      objectReference: {fileID: 8300000, guid: 38d082654125db4458d30e4855b75750, type: 3}
-    - target: {fileID: 114983685229135882, guid: 3990514826da93f4694d11021dde514d,
-        type: 2}
-      propertyPath: SpeedShotSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 9f1a26fec860e304bbcff04c135c26d7, type: 3}
-    - target: {fileID: 114983685229135882, guid: 3990514826da93f4694d11021dde514d,
-        type: 2}
-      propertyPath: ColliderKissSound
-      value: 
-      objectReference: {fileID: 8300000, guid: af201496c6c20494b8729f3b4bb71a0b, type: 3}
-    - target: {fileID: 114983685229135882, guid: 3990514826da93f4694d11021dde514d,
-        type: 2}
-      propertyPath: ColliderWallSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 085f1e396e1a5304ebaca26d638fddc8, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3990514826da93f4694d11021dde514d, type: 2}
   m_IsPrefabParent: 0

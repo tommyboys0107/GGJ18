@@ -168,7 +168,7 @@ GameObject:
   - component: {fileID: 61088892505582420}
   m_Layer: 0
   m_Name: colliderWallLeftP1
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2157,7 +2157,7 @@ GameObject:
   - component: {fileID: 61897089703319636}
   m_Layer: 0
   m_Name: colliderWallP2
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2730,7 +2730,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1374704159074846
 GameObject:
   m_ObjectHideFlags: 1
@@ -2864,7 +2864,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1404324842213378
 GameObject:
   m_ObjectHideFlags: 1
@@ -3137,7 +3137,7 @@ GameObject:
   - component: {fileID: 61665149571206542}
   m_Layer: 0
   m_Name: colliderWallRightP1
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3450,7 +3450,7 @@ GameObject:
   - component: {fileID: 61952474483072282}
   m_Layer: 0
   m_Name: colliderWallP1
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6481,7 +6481,7 @@ GameObject:
   - component: {fileID: 61144553941904994}
   m_Layer: 0
   m_Name: colliderWallLeftP2
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7099,7 +7099,7 @@ GameObject:
   - component: {fileID: 61034473952289712}
   m_Layer: 0
   m_Name: colliderWallRightP2
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12711,7 +12711,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -17064,21 +17064,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 365b99bfbba8740948c13ea652112193, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainSound: {fileID: 0}
-  GameStartSound: {fileID: 0}
-  RomanceSound: {fileID: 0}
+  MainSound: {fileID: 8300000, guid: d8c2492430bfdcd4eb19085ac9b314c6, type: 3}
+  GameStartSound: {fileID: 8300000, guid: a8ba1c35db9f73c4daa55a1992efe004, type: 3}
+  RomanceSound: {fileID: 8300000, guid: a8ba1c35db9f73c4daa55a1992efe004, type: 3}
   EndGameSound: {fileID: 0}
   PeaceEndSound: {fileID: 0}
-  ClickSound: {fileID: 0}
+  ClickSound: {fileID: 8300000, guid: 085f1e396e1a5304ebaca26d638fddc8, type: 3}
   ReadySound: {fileID: 0}
-  ShareYouLove: {fileID: 0}
+  ShareYouLove: {fileID: 8300000, guid: 38d082654125db4458d30e4855b75750, type: 3}
   YouWin: {fileID: 0}
   LovePeace: {fileID: 0}
   SavePowerSound: {fileID: 0}
-  SpeedShotSound: {fileID: 0}
+  SpeedShotSound: {fileID: 8300000, guid: 9f1a26fec860e304bbcff04c135c26d7, type: 3}
   ColliderSound: {fileID: 0}
-  ColliderKissSound: {fileID: 0}
-  ColliderWallSound: {fileID: 0}
+  ColliderKissSound: {fileID: 8300000, guid: af201496c6c20494b8729f3b4bb71a0b, type: 3}
+  ColliderWallSound: {fileID: 8300000, guid: 085f1e396e1a5304ebaca26d638fddc8, type: 3}
   PlayerHitPlayerSound: {fileID: 0}
   FivesSound: {fileID: 0}
   StartGameThreeSound: {fileID: 0}
