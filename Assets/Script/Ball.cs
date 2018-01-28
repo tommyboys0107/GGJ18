@@ -13,7 +13,11 @@ public class Ball : MonoBehaviour {
     public SpriteRenderer ballSprite;
     public BallType ballType = BallType.NONE;
 
+    Rigidbody2D rigid;
     Animator animator = null;
+    Vector3 initialPosition;
+    Quaternion initialQuaternion;
+    BallType initialBallType;
 
     public BallType BallTypeProperty
     {
@@ -34,10 +38,28 @@ public class Ball : MonoBehaviour {
         {
             animator = gameObject.GetComponentInChildren<Animator>();
         }
+
+        if(rigid == null)
+        {
+            rigid = gameObject.GetComponent<Rigidbody2D>();
+        }
     }
 
     void Start()
     {
+        initialPosition = transform.localPosition;
+        initialQuaternion = transform.localRotation;
+        initialBallType = ballType;
+        Initialize();
+        GameControl.Instance.GameTime.eventEndCallBck += Initialize;
+    }
+
+    void Initialize()
+    {
+        transform.localPosition = initialPosition;
+        transform.localRotation = initialQuaternion;
+        ballType = initialBallType;
+        rigid.velocity = Vector3.zero;
         UpdateBallColor();
         UpdateBallFace();
     }

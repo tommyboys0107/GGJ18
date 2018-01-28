@@ -178,6 +178,8 @@ namespace CliffLeeCL
 
                 if (timeIsUpHandler != null)
                     timeIsUpHandler();
+                if(eventEndCallBck != null)
+                    eventEndCallBck();
             } while (isCountDownRepetitive);
             isTimerStarted = false;
         }

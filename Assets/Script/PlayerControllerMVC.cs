@@ -28,19 +28,32 @@ namespace CliffLeeCL
         void Start()
         {
             collisionTimer = gameObject.AddComponent<Timer>();
+            initialPlayerTransform = playerTransform;
+            initialPlayerRigid = playerRigid;
             Initialize();
+            GameControl.Instance.GameTime.eventEndCallBck += Initialize;
         }
 
         void Initialize()
         {
+            playerTransform = initialPlayerTransform;
+            playerRigid = initialPlayerRigid;
             if (playerCanvas != null)
-                Destroy(playerCanvas);
+            {
+                playerCanvas.transform.SetParent(playerTransform);
+                playerCanvas.transform.localPosition = Vector3.zero;
+            }
+            else
+            {
+                playerCanvas = Instantiate(playerCanvasPrefab, playerTransform).GetComponent<PlayerCanvas>();
+            }
             if (playerCollisionHandler != null)
                 Destroy(playerCollisionHandler);
-            playerCanvas = Instantiate(playerCanvasPrefab, playerTransform).GetComponent<PlayerCanvas>();
             playerCollisionHandler = playerTransform.gameObject.AddComponent<PlayerCollisionHandler>();
             playerCollisionHandler.Controller = this;
             ball = playerTransform.gameObject.GetComponent<Ball>();
+            currentPushForce = 0.0f;
+            model.isRotationSet = false;
         }
 
         /// <summary>
