@@ -30,10 +30,13 @@ namespace CliffLeeCL {
 
         public void InputTap()
         {
-            if (model.isRotationSet)
-                controller.Shoot();
-            else
-                controller.SetRotation();
+            if (GameControl.Instance.IsGameStarted)
+            {
+                if (model.isRotationSet)
+                    controller.Shoot();
+                else
+                    controller.SetRotation();
+            }
         }
     }
 }
