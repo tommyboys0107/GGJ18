@@ -103,6 +103,7 @@ namespace CliffLeeCL
             }
             currentPushForce = 0.0f;
             model.isRotationSet = false;
+            MusicControal.Instance.PlayerSounder(MusicTypeChose.SpeedShotSound);
         }
 
         public void HandleCollision2D(Collision2D col)

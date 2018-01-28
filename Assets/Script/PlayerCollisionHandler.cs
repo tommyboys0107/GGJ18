@@ -19,7 +19,14 @@ namespace CliffLeeCL
         void OnCollisionEnter2D(Collision2D col)
         {
             if (col.gameObject.CompareTag("Ball"))
+            {
                 controller.HandleCollision2D(col);
+                MusicControal.Instance.PlayerSounder(MusicTypeChose.ColliderKissSound);
+            }
+            if (col.gameObject.CompareTag("Wall"))
+            {
+                MusicControal.Instance.PlayerSounder(MusicTypeChose.ColliderWallSound);
+            }
         }
     }
 }
