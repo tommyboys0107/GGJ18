@@ -12306,6 +12306,8 @@ MonoBehaviour:
   playerRigid: {fileID: 50596458266180316}
   playerCanvasPrefab: {fileID: 1407809493046894, guid: 24cd94fdd80a5164198a3d268e83b829,
     type: 2}
+  collisionParticlePrefab: {fileID: 1040963702194990, guid: 84c4bb7285247af42ada33c5453ad1d0,
+    type: 2}
 --- !u!114 &114166652972170578
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -14281,6 +14283,8 @@ MonoBehaviour:
   playerTransform: {fileID: 4892138629917958}
   playerRigid: {fileID: 50451124376635500}
   playerCanvasPrefab: {fileID: 1407809493046894, guid: 24cd94fdd80a5164198a3d268e83b829,
+    type: 2}
+  collisionParticlePrefab: {fileID: 1040963702194990, guid: 84c4bb7285247af42ada33c5453ad1d0,
     type: 2}
 --- !u!114 &114929289526278490
 MonoBehaviour:

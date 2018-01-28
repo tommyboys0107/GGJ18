@@ -10,6 +10,7 @@ namespace CliffLeeCL
         public Transform playerTransform;
         public Rigidbody2D playerRigid;
         public GameObject playerCanvasPrefab;
+        public GameObject collisionParticlePrefab;
 
         Ball ball;
         Ball oldBall;
@@ -107,6 +108,7 @@ namespace CliffLeeCL
                             objBall.UpdateBallFace();
                             ball.UpdateBallFaceCollision();
                             objBall.UpdateBallFaceCollision();
+                            Instantiate(collisionParticlePrefab, ball.transform);
                             oldBall = ball;
                             ball = objBall;
                             break;
@@ -131,6 +133,7 @@ namespace CliffLeeCL
                             objBall.UpdateBallFace();
                             ball.UpdateBallFaceCollision();
                             objBall.UpdateBallFaceCollision();
+                            Instantiate(collisionParticlePrefab, ball.transform);
                             oldBall = ball;
                             ball = objBall;
                             break;
