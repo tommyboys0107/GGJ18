@@ -17,6 +17,7 @@ namespace CliffLeeCL
         PlayerCanvas playerCanvas;
         Timer collisionTimer;
         float currentPushForce = 0.0f;
+        bool isForceRising = true;
 
         /// <summary>
         /// Start is called once on the frame when a script is enabled.
@@ -42,7 +43,18 @@ namespace CliffLeeCL
                 playerCanvas.arrowOrigin.transform.Rotate(0.0f, 0.0f, model.angularSpeed * Time.deltaTime, Space.Self);
             else
             {
-                currentPushForce = Mathf.Min((currentPushForce + model.gainForceSpeed * Time.deltaTime), model.maxPushForce);
+                if (isForceRising)
+                {
+                    currentPushForce = currentPushForce + model.gainForceSpeed * Time.deltaTime;
+                    if (currentPushForce >= model.maxPushForce)
+                        isForceRising = false;
+                }
+                else
+                {
+                    currentPushForce = currentPushForce - model.gainForceSpeed * Time.deltaTime;
+                    if (currentPushForce <= 0.01f)
+                        isForceRising = true;
+                }
                 playerCanvas.arrowFilled.fillAmount = currentPushForce / model.maxPushForce;
             }
         }
