@@ -343,7 +343,9 @@ public class MusicControal:Singleton<MusicControal>{
 		
 	}
 	public void PlayerSounder(MusicTypeChose mosiutype){
-        AudioClip use = GameAllMusic[mosiutype];
+        AudioClip use = null;
+        if(GameAllMusic.ContainsKey(mosiutype))
+             use = GameAllMusic[mosiutype];
         if (use == null)
             return;
 		switch (mosiutype)
