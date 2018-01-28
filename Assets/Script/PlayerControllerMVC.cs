@@ -128,7 +128,7 @@ namespace CliffLeeCL
             }
             else
             {
-                collisionTimer.StartCountDownTimer(0.2f, false, OnTimeIsUp);
+                collisionTimer.StartCountDownTimer(0.1f, false, OnTimeIsUp);
             }
         }
 

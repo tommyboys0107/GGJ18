@@ -75,7 +75,7 @@ public class GameControl :  SingletonMono<GameControl>{
 	}
 
     public void Fight(){
-        GameTime.StartCountDownTimer(30f, false, gamedatavoid);
+        GameTime.StartCountDownTimer(30f, false, OnRoundTimeIsUp);
     }
 
 	// Use this for initialization
@@ -87,7 +87,6 @@ public class GameControl :  SingletonMono<GameControl>{
 	//bool startInto=false;
 
 	float gamedataf=0;
-	Timer.TimeIsUpHandler[] gamedatavoid;
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.G)) {
@@ -100,11 +99,10 @@ public class GameControl :  SingletonMono<GameControl>{
 		//Debug.Log (GameTime.remainTime);
 	}
     public void C(){
-        StartCoroutine(StartOnePlayer(3, new Timer.TimeIsUpHandler[] { tt }));
+        StartCoroutine(StartOnePlayer(3.0f));
     }
-    IEnumerator StartOnePlayer(float Detim,Timer.TimeIsUpHandler[] data ){
+    IEnumerator StartOnePlayer(float Detim){
         gamedataf = Detim;
-        gamedatavoid = data;
         float addtime=0f;
         Debug.Log("Detim");
         while (Detim >= addtime){
@@ -137,6 +135,11 @@ public class GameControl :  SingletonMono<GameControl>{
         UIControl.Instance.ChangeUI(GameStatus.UIScores);
         _SourscUI.SetTime(1,Player1Point);
         _SourscUI.SetTime(2, Player2Point);
+    }
+
+    void OnRoundTimeIsUp()
+    {
+        UIControl.Instance.ChangeUI(GameStatus.UIResults);
     }
 }
 
