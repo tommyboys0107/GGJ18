@@ -6658,7 +6658,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1968396065587562
 GameObject:
   m_ObjectHideFlags: 1
@@ -15445,7 +15445,7 @@ MonoBehaviour:
   GameStopMusic: {fileID: 0}
   GameTime: {fileID: 0}
   _TimeUIControl: {fileID: 114468929189253288}
-  _SourscUI: {fileID: 0}
+  _SourscUI: {fileID: 114200769675493308}
   roundTime: 30
   fir: 0
 --- !u!124 &124480305714824846
