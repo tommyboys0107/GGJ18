@@ -10179,10 +10179,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   none: {r: 1, g: 1, b: 1, a: 1}
-  player1: {r: 0.21960784, g: 0.36862746, b: 1, a: 1}
-  player1Ally: {r: 0.49411765, g: 0.5882353, b: 1, a: 1}
-  player2: {r: 1, g: 0.2784314, b: 0.05882353, a: 1}
-  player2Ally: {r: 1, g: 0.5647059, b: 0.43529412, a: 1}
+  player1: {r: 1, g: 0.2784314, b: 0.05882353, a: 1}
+  player1Ally: {r: 1, g: 0.5647059, b: 0.43529412, a: 1}
+  player2: {r: 0.21960784, g: 0.36862746, b: 1, a: 1}
+  player2Ally: {r: 0.49411765, g: 0.5882353, b: 1, a: 1}
 --- !u!114 &114650293861840458
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10840,6 +10840,7 @@ MonoBehaviour:
   GameTime: {fileID: 0}
   _TimeUIControl: {fileID: 114468929189253288}
   _SourscUI: {fileID: 114425225181183028}
+  roundTime: 30
   fir: 0
 --- !u!124 &124480305714824846
 Behaviour:
