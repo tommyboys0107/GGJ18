@@ -94,7 +94,6 @@ public class GameControl : SingletonMono<GameControl> {
 
 	// Use this for initialization
 	void Start () {
-        Debug.Log("addone");
 		GameTime.eventStartCallBack += tt2;
 		GameTime.eventEndCallBck += tt;
 	}
@@ -332,7 +331,6 @@ public class MusicControal:Singleton<MusicControal>{
 
 	Dictionary<MusicTypeChose,AudioClip> GameAllMusic=new Dictionary<MusicTypeChose,AudioClip>();
 	public void _init(){
-        Debug.Log("w");
         GameAllMusic.Add(MusicTypeChose.MainSound,GameControl.Instance.MainSound);
 		GameAllMusic.Add(MusicTypeChose.GameStartSound,GameControl.Instance.GameStartSound);
 		GameAllMusic.Add(MusicTypeChose.RomanceSound,GameControl.Instance.RomanceSound);
