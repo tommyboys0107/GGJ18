@@ -65,6 +65,7 @@ public class GameControl : SingletonMono<GameControl> {
     public SourscUI _SourscUI;
     public GameObject musicOff;
     public float roundTime = 30.0f;
+    public bool isPlayerSwapped = false;
 
     bool isGameStarted = false;
 

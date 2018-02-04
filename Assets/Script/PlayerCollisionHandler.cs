@@ -14,6 +14,11 @@ namespace CliffLeeCL
             {
                 controller = value;
             }
+
+            get
+            {
+                return controller;
+            }
         }
 
         void OnCollisionEnter2D(Collision2D col)

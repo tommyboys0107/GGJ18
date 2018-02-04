@@ -21,6 +21,7 @@ namespace CliffLeeCL
         Timer collisionTimer;
         float currentPushForce = 0.0f;
         bool isForceRising = true;
+        bool isPlayerSwapping = false;
 
         /// <summary>
         /// Start is called once on the frame when a script is enabled.
@@ -108,10 +109,54 @@ namespace CliffLeeCL
 
         public void HandleCollision2D(Collision2D col)
         {
-            ChangePlayer(col.gameObject);
+            TransferControl(col.gameObject);
+        }
+
+        public void SetBall(Ball ball)
+        {
+            this.ball = ball;
+        }
+
+        public void SetOldBall(Ball ball)
+        {
+            oldBall = ball;
+        }
+
+        public void ChangeOwner(GameObject obj)
+        {
+            playerTransform = obj.transform;
+            playerRigid = obj.GetComponent<Rigidbody2D>();
+            playerCanvas.transform.SetParent(playerTransform);
+            playerCanvas.transform.localPosition = Vector3.zero;
+            Destroy(playerCollisionHandler);
+            playerCollisionHandler = playerTransform.gameObject.AddComponent<PlayerCollisionHandler>();
+            playerCollisionHandler.Controller = this;
         }
 
         void ChangePlayer(GameObject obj)
+        {
+            PlayerCollisionHandler playerCollision = obj.GetComponent<PlayerCollisionHandler>();
+
+            isPlayerSwapping = true;
+            playerCollision.Controller.isPlayerSwapping = true;
+            ChangeOwner(obj);
+            playerCollision.Controller.ChangeOwner(ball.gameObject);
+            playerCollision.Controller.SetOldBall(playerCollision.Controller.ball);
+            playerCollision.Controller.SetBall(ball);
+            playerCollision.Controller.isPlayerSwapping = false;
+            isPlayerSwapping = false;
+        }
+
+        bool IsPlayerSwapped()
+        {
+            if ((model.id == 1) && (ball.ballType == Ball.BallType.PLAYER1) ||
+            (model.id == 2) && (ball.ballType == Ball.BallType.PLAYER2))
+                return false;
+            else
+                return true;
+        }
+
+        void TransferControl(GameObject obj)
         {
             Ball objBall = obj.GetComponent<Ball>();
 
@@ -123,7 +168,6 @@ namespace CliffLeeCL
                         case Ball.BallType.NONE:
                         case Ball.BallType.PLAYER1ALLY:
                         case Ball.BallType.PLAYER2ALLY:
-                            ChangeOwner(obj);
                             ball.BallTypeProperty = Ball.BallType.PLAYER1ALLY;
                             objBall.BallTypeProperty = Ball.BallType.PLAYER1;
                             ball.UpdateBallFace();
@@ -131,13 +175,20 @@ namespace CliffLeeCL
                             ball.UpdateBallFaceCollision();
                             objBall.UpdateBallFaceCollision();
                             Instantiate(collisionParticlePrefab, ball.transform);
+                            ChangeOwner(obj);
                             oldBall = ball;
                             ball = objBall;
                             break;
                         case Ball.BallType.PLAYER2:
-                            /*ChangeOwner(obj);
-                            oldBall = ball;
-                            ball = objBall;*/
+                            if (!isPlayerSwapping)
+                            {
+                                print("1 to 2");
+                                Instantiate(collisionParticlePrefab, ball.transform);
+                                ChangePlayer(obj);
+                                oldBall = ball;
+                                ball = objBall;
+                                GameControl.Instance.isPlayerSwapped = IsPlayerSwapped();
+                            }
                             break;
                         default:
                             break;
@@ -148,7 +199,6 @@ namespace CliffLeeCL
                         case Ball.BallType.NONE:
                         case Ball.BallType.PLAYER1ALLY:
                         case Ball.BallType.PLAYER2ALLY:
-                            ChangeOwner(obj);
                             ball.BallTypeProperty = Ball.BallType.PLAYER2ALLY;
                             objBall.BallTypeProperty = Ball.BallType.PLAYER2;
                             ball.UpdateBallFace();
@@ -156,13 +206,20 @@ namespace CliffLeeCL
                             ball.UpdateBallFaceCollision();
                             objBall.UpdateBallFaceCollision();
                             Instantiate(collisionParticlePrefab, ball.transform);
+                            ChangeOwner(obj);
                             oldBall = ball;
                             ball = objBall;
                             break;
                         case Ball.BallType.PLAYER1:
-                            /*ChangeOwner(obj);
-                            oldBall = ball;
-                            ball = objBall;*/
+                            if (!isPlayerSwapping)
+                            {
+                                print("2 to 1");
+                                Instantiate(collisionParticlePrefab, ball.transform);
+                                ChangePlayer(obj);
+                                oldBall = ball;
+                                ball = objBall;
+                                GameControl.Instance.isPlayerSwapped = IsPlayerSwapped();
+                            }
                             break;
                         default:
                             break;
@@ -171,19 +228,8 @@ namespace CliffLeeCL
             }
             else
             {
-                collisionTimer.StartCountDownTimer(0.1f, false, false, OnTimeIsUp);
+                collisionTimer.StartCountDownTimer(0.05f, false, false, OnTimeIsUp);
             }
-        }
-
-        void ChangeOwner(GameObject obj)
-        {
-            playerTransform = obj.transform;
-            playerRigid = obj.GetComponent<Rigidbody2D>();
-            playerCanvas.transform.SetParent(playerTransform);
-            playerCanvas.transform.localPosition = Vector3.zero;
-            Destroy(playerCollisionHandler);
-            playerCollisionHandler = playerTransform.gameObject.AddComponent<PlayerCollisionHandler>();
-            playerCollisionHandler.Controller = this;
         }
 
         void OnTimeIsUp()
