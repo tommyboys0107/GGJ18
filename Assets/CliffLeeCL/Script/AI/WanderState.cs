@@ -60,6 +60,7 @@ namespace CliffLeeCL
             stateContext.timer.StartCountDownTimer(
                 wanderTime,
                 false,
+                false,
                 OnTimeIsUp
                 );
 

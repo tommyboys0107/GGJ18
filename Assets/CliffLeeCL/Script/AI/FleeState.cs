@@ -71,6 +71,7 @@ namespace CliffLeeCL
             stateContext.timer.StartCountDownTimer(
                 fleeTime,
                 false,
+                false,
                 OnTimeIsUp
                 );
 

@@ -76,7 +76,7 @@ public class GameControl : SingletonMono<GameControl> {
         }
     }
 
-	void Awake(){
+	public override void Awake(){
 		
 		MusicControal.Instance._init();
         UIControl.Instance._init();
@@ -89,23 +89,25 @@ public class GameControl : SingletonMono<GameControl> {
 
     public void Fight(){
         isGameStarted = true;
-        GameTime.StartCountDownTimer(roundTime, false, OnRoundTimeIsUp);
+        GameTime.StartCountDownTimer(roundTime, true, false, OnRoundTimeIsUp);
     }
 
 	// Use this for initialization
 	void Start () {
+        Debug.Log("addone");
 		GameTime.eventStartCallBack += tt2;
 		GameTime.eventEndCallBck += tt;
 	}
     public bool fir=false;
-	//bool startInto=false;
-
+    //bool startInto=false;
+    public Image text;
 	float gamedataf=0;
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.G)) {
-			UIControl.Instance.ChangeUI (GameStatus.UISelect);
-		}
+            text.fillAmount -= 0.1f;
+
+        }
         if (isGameStarted)
         {
             _TimeUIControl.setTime(GameTime.CurrentTime, roundTime);
@@ -124,16 +126,17 @@ public class GameControl : SingletonMono<GameControl> {
         StartCoroutine(StartOnePlayer(3.0f));
         MusicControal.Instance.PlayerSounder(MusicTypeChose.ShareYouLove);
     }
+    
+
     IEnumerator StartOnePlayer(float Detim){
         gamedataf = Detim;
         float addtime=0f;
-        Debug.Log("Detim");
-        while (Detim >= addtime){
-            yield return new WaitForEndOfFrame();
-            addtime += Time.deltaTime;
+       // while (Detim >= addtime){
+        //    yield return new WaitForEndOfFrame();
+       //     addtime += Time.deltaTime;
             _TimeUIControl.DownTime(addtime);
             //addtime += Time.deltaTime;
-        }
+       // }
 
         yield return new WaitForEndOfFrame();
         //GameTime.StartCountDownTimer(30f, false, data);
@@ -141,7 +144,7 @@ public class GameControl : SingletonMono<GameControl> {
 
 	IEnumerator st(float waittime,float ftime,Timer.TimeIsUpHandler[] enffun){
 		yield return new WaitForSeconds (waittime);
-		GameTime.StartCountDownTimer (ftime, false, enffun);
+		GameTime.StartCountDownTimer (ftime, true, false, enffun);
 	}
 	public void IntoTitle(){
 		UIControl.Instance.ChangeUI (GameStatus.UIMainMenu);
@@ -158,12 +161,11 @@ public class GameControl : SingletonMono<GameControl> {
 
 	void tt2(){
         MusicControal.Instance.PlayerSounder(MusicTypeChose.RomanceSound);
-
         Debug.Log("start");
-	}
+    }
 	void tt(){
         MusicControal.Instance.PlayerSounder(MusicTypeChose.EndGameSound);
-		Debug.Log ("end");
+      
 	}
 
     public void GameEnd(int Player1Point,int Player2Point){

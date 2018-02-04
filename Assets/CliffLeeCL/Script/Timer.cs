@@ -136,7 +136,7 @@ namespace CliffLeeCL
         /// <param name="isRepetitive">Whether the count down process is repetitive.</param>
         /// <param name="callback">The callback function will be called when time's up.</param>
         /// <seealso cref="StopCountDownTimer"/>
-        public void StartCountDownTimer(float time, bool isRepetitive = false, params TimeIsUpHandler[] callback)
+        public void StartCountDownTimer(float time, bool needeventcall, bool isRepetitive = false, params TimeIsUpHandler[] callback)
         {
             
             StopCountDownTimer();
@@ -145,7 +145,7 @@ namespace CliffLeeCL
             foreach (TimeIsUpHandler listener in callback)
                 timeIsUpHandler += listener;
 
-            if (eventStartCallBack != null)
+            if (eventStartCallBack != null && needeventcall)
                 eventStartCallBack();
             countDownTimer = CountDownTimer(time);
             StartCoroutine(countDownTimer);

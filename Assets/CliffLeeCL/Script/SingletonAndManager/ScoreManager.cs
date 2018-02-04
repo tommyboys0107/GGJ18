@@ -68,7 +68,7 @@ namespace CliffLeeCL
         public void AddCombo(int amount)
         {
             currentCombo += amount;
-            comboTimer.StartCountDownTimer(comboResetTime, false, OnComboTimerIsUp);
+            comboTimer.StartCountDownTimer(comboResetTime, false, false, OnComboTimerIsUp);
         }
 
         public void AddLove(float amount)

@@ -21,6 +21,7 @@ namespace CliffLeeCL
             stateContext.timer.StartCountDownTimer(
                 idleTime,
                 false,
+                false,
                 OnTimeIsUp
                 );
 

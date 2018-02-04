@@ -71,7 +71,7 @@ namespace CliffLeeCL
                 isGameOver = false;
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
-                roundTimer.StartCountDownTimer(roundTime, false, OnRoundTimeIsUp);
+                roundTimer.StartCountDownTimer(roundTime, false, false, OnRoundTimeIsUp);
             }
             else
             {

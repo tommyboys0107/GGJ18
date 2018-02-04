@@ -75,6 +75,7 @@ public class SourscUI : MonoBehaviour {
                     Check2 = true;
                 if(Check1 && Check2)
                 UIControl.Instance.OpenOneUI(GameStatus.UIResults);
+                //GameControl.Instance.AudioAll[0].Stop();
             }
             else
             {
