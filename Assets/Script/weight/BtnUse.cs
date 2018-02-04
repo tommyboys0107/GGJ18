@@ -16,7 +16,9 @@ public class BtnUse : MonoBehaviour {
 		if(anim!=null)
 			anim.SetTrigger("DOWN");
 		StartCoroutine(GOOO(Detime));
-	}
+        MusicControal.Instance.PlayerSounder(MusicTypeChose.ClickSound);
+    }
+
 	IEnumerator GOOO(float time){
 		yield return new WaitForSeconds (time);
         UIControl.Instance.GameSetting(GG);
