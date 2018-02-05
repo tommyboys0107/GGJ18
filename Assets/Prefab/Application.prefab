@@ -683,7 +683,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1082404232649896
 GameObject:
   m_ObjectHideFlags: 1
@@ -2724,13 +2724,14 @@ GameObject:
   m_Component:
   - component: {fileID: 224970455754109936}
   - component: {fileID: 95825375467398204}
+  - component: {fileID: 114693614988741078}
   m_Layer: 5
   m_Name: btnMusic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1374704159074846
 GameObject:
   m_ObjectHideFlags: 1
@@ -3061,7 +3062,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1429063943719556
 GameObject:
   m_ObjectHideFlags: 1
@@ -5377,7 +5378,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1764950472901728
 GameObject:
   m_ObjectHideFlags: 1
@@ -6462,6 +6463,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224057724123610154}
   - component: {fileID: 95830950780942216}
+  - component: {fileID: 114924244178461158}
   m_Layer: 5
   m_Name: btnSound
   m_TagString: Untagged
@@ -13402,7 +13404,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 0e655dc223c369c4e8bfb18dfe73bc44, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fbd05c93d6a495046950e613dced6d3a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13686,7 +13688,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114065414168744696}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114693614988741078}
+        m_MethodName: changeaudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114099997287396208
@@ -14262,6 +14275,8 @@ MonoBehaviour:
   Lose: {fileID: 21300000, guid: fbd05c93d6a495046950e613dced6d3a, type: 3}
   Scro1: {fileID: 114408818251731582}
   Scro2: {fileID: 114834845774850762}
+  imageIcon1: {fileID: 114977986656315666}
+  imageIcon2: {fileID: 114515176096801072}
   Scr1: {fileID: 114177349793435796}
   Scr2: {fileID: 114012632505395242}
   scoreRollingSpeed: 10
@@ -15326,6 +15341,7 @@ MonoBehaviour:
   CountDown: {fileID: 1482065150314894}
   GoTitle: {fileID: 1799034314527504}
   BG: {fileID: 1366883428192026}
+  fir: 0
 --- !u!114 &114469094758410370
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -16279,6 +16295,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114693614988741078
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1371756285412474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c36630e32423f4488d367df5de9c603, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controalaudio:
+  - {fileID: 82911117331006774}
+  audiowhat: {fileID: 1427824612357158}
 --- !u!114 &114725122767007146
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -16519,8 +16549,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114983685229135882}
-        m_MethodName: ToggleMute
+      - m_Target: {fileID: 114924244178461158}
+        m_MethodName: changeaudio
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16788,6 +16818,24 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114924244178461158
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1888468876567384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c36630e32423f4488d367df5de9c603, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controalaudio:
+  - {fileID: 82397974729954388}
+  - {fileID: 82499539425700068}
+  - {fileID: 82523438248648714}
+  - {fileID: 82182654626938752}
+  - {fileID: 82735123007110898}
+  audiowhat: {fileID: 1402084106816074}
 --- !u!114 &114929289526278490
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -17106,7 +17154,9 @@ MonoBehaviour:
   _SourscUI: {fileID: 114200769675493308}
   musicOff: {fileID: 1402084106816074}
   roundTime: 30
+  isPlayerSwapped: 0
   fir: 0
+  text: {fileID: 0}
 --- !u!124 &124480305714824846
 Behaviour:
   m_ObjectHideFlags: 1

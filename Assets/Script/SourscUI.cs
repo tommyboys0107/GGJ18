@@ -9,6 +9,8 @@ public class SourscUI : MonoBehaviour {
     public Sprite Lose;
     public Text Scro1;
     public Text Scro2;
+    public Image imageIcon1;
+    public Image imageIcon2;
     public Image Scr1;
     public Image Scr2;
     public float scoreRollingSpeed = 10.0f;
@@ -41,20 +43,23 @@ public class SourscUI : MonoBehaviour {
         {
             case 1:
                 Scro1.text = "0";
-                StartCoroutine(PointUp(Scro1,0,(float)point));
-                if(bwin)
-                    Scr1.sprite = win;
-                else 
-                    Scr1.sprite = Lose;
+                StartCoroutine(PointUp((GameControl.Instance.isPlayerSwapped ? Scro2 : Scro1), 0,(float)point));
+                if (bwin)
+                    Scr1.sprite = GameControl.Instance.isPlayerSwapped ? Lose : win;
+                else
+                    Scr1.sprite = GameControl.Instance.isPlayerSwapped ? win : Lose;
+
+                imageIcon1.color = GameControl.Instance.isPlayerSwapped ? ColorMap.Player2 : ColorMap.Player1;
                 break;
             case 2:
                 Scro2.text = "0";
-                StartCoroutine(PointUp(Scro2,0,(float)point));
+                StartCoroutine(PointUp((GameControl.Instance.isPlayerSwapped ? Scro1 : Scro2), 0,(float)point));
                 if (bwin)
-                    Scr2.sprite = win;
+                    Scr2.sprite = GameControl.Instance.isPlayerSwapped ? Lose : win;
                 else
-                    Scr2.sprite = Lose;
+                    Scr2.sprite = GameControl.Instance.isPlayerSwapped ? win : Lose;
 
+                imageIcon2.color = GameControl.Instance.isPlayerSwapped ? ColorMap.Player1 : ColorMap.Player2;
                 break;
             default:
                 break;
