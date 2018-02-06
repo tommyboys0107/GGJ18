@@ -32,7 +32,12 @@ namespace CliffLeeCL
             initialPlayerTransform = playerTransform;
             initialPlayerRigid = playerRigid;
             Initialize();
-            GameControl.Instance.GameTime.eventEndCallBck += Initialize;
+            EventManager.Instance.onGameStart += Initialize;
+        }
+
+        void OnDisable()
+        {
+            EventManager.Instance.onGameStart -= Initialize;
         }
 
         void Initialize()
@@ -55,6 +60,11 @@ namespace CliffLeeCL
             ball = playerTransform.gameObject.GetComponent<Ball>();
             currentPushForce = 0.0f;
             model.isRotationSet = false;
+
+            if (model.id == 1)
+                ball.BallTypeProperty = GameControl.Instance.IsPlayerSwapped ? Ball.BallType.PLAYER2 : Ball.BallType.PLAYER1;
+            else if (model.id == 2)
+                ball.BallTypeProperty = GameControl.Instance.IsPlayerSwapped ? Ball.BallType.PLAYER1 : Ball.BallType.PLAYER2;
         }
 
         /// <summary>
@@ -182,12 +192,11 @@ namespace CliffLeeCL
                         case Ball.BallType.PLAYER2:
                             if (!isPlayerSwapping)
                             {
-                                print("1 to 2");
                                 Instantiate(collisionParticlePrefab, ball.transform);
                                 ChangePlayer(obj);
                                 oldBall = ball;
                                 ball = objBall;
-                                GameControl.Instance.isPlayerSwapped = IsPlayerSwapped();
+                                GameControl.Instance.IsPlayerSwapped = IsPlayerSwapped();
                             }
                             break;
                         default:
@@ -213,12 +222,11 @@ namespace CliffLeeCL
                         case Ball.BallType.PLAYER1:
                             if (!isPlayerSwapping)
                             {
-                                print("2 to 1");
                                 Instantiate(collisionParticlePrefab, ball.transform);
                                 ChangePlayer(obj);
                                 oldBall = ball;
                                 ball = objBall;
-                                GameControl.Instance.isPlayerSwapped = IsPlayerSwapped();
+                                GameControl.Instance.IsPlayerSwapped = IsPlayerSwapped();
                             }
                             break;
                         default:

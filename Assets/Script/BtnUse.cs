@@ -11,12 +11,17 @@ public class BtnUse : MonoBehaviour {
 	void Start () {
 		
 	}
-	public void Change(){
-		Debug.Log("Tri");
-		if(anim!=null)
-			anim.SetTrigger("DOWN");
-		StartCoroutine(GOOO(Detime));
+
+    public void BtnEffect()
+    {
+        if (anim != null)
+            anim.SetTrigger("DOWN");
         MusicControal.Instance.PlayerSounder(MusicTypeChose.ClickSound);
+    }
+
+	public void Change(){
+        BtnEffect();
+        StartCoroutine(GOOO(Detime));
     }
 
 	IEnumerator GOOO(float time){

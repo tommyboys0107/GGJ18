@@ -65,9 +65,23 @@ public class GameControl : SingletonMono<GameControl> {
     public SourscUI _SourscUI;
     public GameObject musicOff;
     public float roundTime = 30.0f;
-    public bool isPlayerSwapped = false;
 
+    bool isPlayerSwapped = false;
     bool isGameStarted = false;
+
+    public bool IsPlayerSwapped
+    {
+        get
+        {
+            return isPlayerSwapped;
+        }
+
+        set
+        {
+            isPlayerSwapped = value;
+            OnPlayerSwapped();
+        }
+    }
 
     public bool IsGameStarted
     {
@@ -91,6 +105,26 @@ public class GameControl : SingletonMono<GameControl> {
     public void Fight(){
         isGameStarted = true;
         GameTime.StartCountDownTimer(roundTime, true, false, OnRoundTimeIsUp);
+    }
+
+    public void SwapPlayer()
+    {
+        IsPlayerSwapped = !isPlayerSwapped;
+    }
+
+    void OnPlayerSwapped()
+    {
+        EventManager.Instance.OnPlayerSwapped();
+    }
+
+    public void PlayerReset()
+    {
+        IsPlayerSwapped = false;
+    }
+    
+    public void OnGameStart()
+    {
+        EventManager.Instance.OnGameStart();
     }
 
 	// Use this for initialization

@@ -43,23 +43,23 @@ public class SourscUI : MonoBehaviour {
         {
             case 1:
                 Scro1.text = "0";
-                StartCoroutine(PointUp((GameControl.Instance.isPlayerSwapped ? Scro2 : Scro1), 0,(float)point));
+                StartCoroutine(PointUp((GameControl.Instance.IsPlayerSwapped ? Scro2 : Scro1), 0,(float)point));
                 if (bwin)
-                    Scr1.sprite = GameControl.Instance.isPlayerSwapped ? Lose : win;
+                    Scr1.sprite = GameControl.Instance.IsPlayerSwapped ? Lose : win;
                 else
-                    Scr1.sprite = GameControl.Instance.isPlayerSwapped ? win : Lose;
+                    Scr1.sprite = GameControl.Instance.IsPlayerSwapped ? win : Lose;
 
-                imageIcon1.color = GameControl.Instance.isPlayerSwapped ? ColorMap.Player2 : ColorMap.Player1;
+                imageIcon1.color = GameControl.Instance.IsPlayerSwapped ? ColorMap.Player2 : ColorMap.Player1;
                 break;
             case 2:
                 Scro2.text = "0";
-                StartCoroutine(PointUp((GameControl.Instance.isPlayerSwapped ? Scro1 : Scro2), 0,(float)point));
+                StartCoroutine(PointUp((GameControl.Instance.IsPlayerSwapped ? Scro1 : Scro2), 0,(float)point));
                 if (bwin)
-                    Scr2.sprite = GameControl.Instance.isPlayerSwapped ? Lose : win;
+                    Scr2.sprite = GameControl.Instance.IsPlayerSwapped ? Lose : win;
                 else
-                    Scr2.sprite = GameControl.Instance.isPlayerSwapped ? win : Lose;
+                    Scr2.sprite = GameControl.Instance.IsPlayerSwapped ? win : Lose;
 
-                imageIcon2.color = GameControl.Instance.isPlayerSwapped ? ColorMap.Player1 : ColorMap.Player2;
+                imageIcon2.color = GameControl.Instance.IsPlayerSwapped ? ColorMap.Player1 : ColorMap.Player2;
                 break;
             default:
                 break;

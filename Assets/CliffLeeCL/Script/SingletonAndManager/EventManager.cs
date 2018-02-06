@@ -30,16 +30,35 @@ namespace CliffLeeCL
         /// Define default event's function signature.
         /// </summary>
         public delegate void DefaultEventHandler();
+
+        /// <summary>
+        /// The event is called when game start.
+        /// </summary>
+        public event DefaultEventHandler onGameStart;
         /// <summary>
         /// The event is called when game over.
         /// </summary>
         /// <seealso cref="OnGameOver"/>
         public event DefaultEventHandler onGameOver;
         /// <summary>
-        /// The event is called when a player scored. Only can call on the server(SyncEvent).
+        /// The event is called when a player scored. 
         /// </summary>
         /// <seealso cref="OnPlayerScored"/>
         public event DefaultEventHandler onPlayerScored;
+        /// <summary>
+        /// The event is called when the players swapped.
+        /// </summary>
+        public event DefaultEventHandler onPlayerSwapped;
+
+        /// <summary>
+        /// The function is called when game start.
+        /// </summary>
+        public void OnGameStart()
+        {
+            if (onGameStart != null)
+                onGameStart();
+            Debug.Log("OnGameStart event is invoked!");
+        }
 
         /// <summary>
         /// The function is called when a player scored.
@@ -60,6 +79,15 @@ namespace CliffLeeCL
         {
             if (onPlayerScored != null)
                 onPlayerScored();
+        }
+
+        /// <summary>
+        /// The function is called when the players swapped.
+        /// </summary>
+        public void OnPlayerSwapped()
+        {
+            if (onPlayerSwapped != null)
+                onPlayerSwapped();
         }
     }
 }
