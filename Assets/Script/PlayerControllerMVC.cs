@@ -170,7 +170,7 @@ namespace CliffLeeCL
         {
             Ball objBall = obj.GetComponent<Ball>();
 
-            if (objBall != oldBall)
+            if (objBall != oldBall && !isPlayerSwapping)
             {
                 if (ball.BallTypeProperty == Ball.BallType.PLAYER1)
                     switch (objBall.BallTypeProperty)
@@ -190,14 +190,11 @@ namespace CliffLeeCL
                             ball = objBall;
                             break;
                         case Ball.BallType.PLAYER2:
-                            if (!isPlayerSwapping)
-                            {
-                                Instantiate(collisionParticlePrefab, ball.transform);
-                                ChangePlayer(obj);
-                                oldBall = ball;
-                                ball = objBall;
-                                GameControl.Instance.IsPlayerSwapped = IsPlayerSwapped();
-                            }
+                            Instantiate(collisionParticlePrefab, ball.transform);
+                            ChangePlayer(obj);
+                            oldBall = ball;
+                            ball = objBall;
+                            GameControl.Instance.IsPlayerSwapped = IsPlayerSwapped();
                             break;
                         default:
                             break;
@@ -220,14 +217,11 @@ namespace CliffLeeCL
                             ball = objBall;
                             break;
                         case Ball.BallType.PLAYER1:
-                            if (!isPlayerSwapping)
-                            {
-                                Instantiate(collisionParticlePrefab, ball.transform);
-                                ChangePlayer(obj);
-                                oldBall = ball;
-                                ball = objBall;
-                                GameControl.Instance.IsPlayerSwapped = IsPlayerSwapped();
-                            }
+                            Instantiate(collisionParticlePrefab, ball.transform);
+                            ChangePlayer(obj);
+                            oldBall = ball;
+                            ball = objBall;
+                            GameControl.Instance.IsPlayerSwapped = IsPlayerSwapped();
                             break;
                         default:
                             break;
