@@ -178,6 +178,7 @@ namespace CliffLeeCL
                         case Ball.BallType.NONE:
                         case Ball.BallType.PLAYER1ALLY:
                         case Ball.BallType.PLAYER2ALLY:
+                            Debug.Log("Collision: P1 (R) to non-player.");
                             ball.BallTypeProperty = Ball.BallType.PLAYER1ALLY;
                             objBall.BallTypeProperty = Ball.BallType.PLAYER1;
                             ball.UpdateBallFace();
@@ -190,6 +191,7 @@ namespace CliffLeeCL
                             ball = objBall;
                             break;
                         case Ball.BallType.PLAYER2:
+                            Debug.Log("Collision: P1 (R) to P2 (B).");
                             Instantiate(collisionParticlePrefab, ball.transform);
                             ChangePlayer(obj);
                             oldBall = ball;
@@ -205,6 +207,7 @@ namespace CliffLeeCL
                         case Ball.BallType.NONE:
                         case Ball.BallType.PLAYER1ALLY:
                         case Ball.BallType.PLAYER2ALLY:
+                            Debug.Log("Collision: P2 (B) to non-player.");
                             ball.BallTypeProperty = Ball.BallType.PLAYER2ALLY;
                             objBall.BallTypeProperty = Ball.BallType.PLAYER2;
                             ball.UpdateBallFace();
@@ -217,6 +220,7 @@ namespace CliffLeeCL
                             ball = objBall;
                             break;
                         case Ball.BallType.PLAYER1:
+                            Debug.Log("Collision: P2 (B) to P1 (R).");
                             Instantiate(collisionParticlePrefab, ball.transform);
                             ChangePlayer(obj);
                             oldBall = ball;
