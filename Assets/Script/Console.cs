@@ -200,7 +200,7 @@ public class Console : MonoBehaviour {
     int pointadd = 0;
     public void ChickAdd(){
         pointadd++;
-        if(pointadd>15){
+        if(pointadd>=11){
             _ScreenSize = ScreenSize.Max;
             pointadd = 0;
         }
