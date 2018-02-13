@@ -56,14 +56,28 @@ public class Console : MonoBehaviour {
     List<MessageData> MessageContainer = new List<MessageData>();
     //KeyCode Function
     Dictionary<KeyCode, Action> KeyFun = new Dictionary<KeyCode, Action>();
+    //指令
+    Dictionary<string, Func<string[],string,bool>> OrderDic = new Dictionary<string, Func<string[],string,bool>>();
+    //Btn
+
+    string[] strVaule;
+
     GUIStyle LabelStyle=new GUIStyle();
 	void Start () {
-        KeyFun.Add(KeyCode.KeypadEnter,InputPlayerCall);
-        KeyFun.Add(KeyCode.Return, InputPlayerCall);
+       // string text = "cbqwessf";
+       // Debug.Log(text.Contains("qwe"));
+        initKeyDic();
+        initCallFun();
 	}
-
-	private void init(){
-		
+    private void initKeyDic(){
+        KeyFun.Add(KeyCode.KeypadEnter, InputPlayerCall);
+        KeyFun.Add(KeyCode.Return, InputPlayerCall);
+    }
+    public void AddKeyDic(KeyCode _key,Action actFun){
+        KeyFun.Add(_key, actFun);
+    }
+	private void initCallFun(){
+        OrderDic.Add("Search",getstringHavestring);
 	}
 
     private void OnEnable()
@@ -142,28 +156,23 @@ public class Console : MonoBehaviour {
             if (GUILayout.Button ("Min",GUILayout.Width(100f))) {
               _ScreenSize = ScreenSize.Min;
             }
-			GUILayout.Label (string.Format("Now Show Type {0}",filterType.ToString()));
+            LabelStyle.normal.textColor = getLevelColor(filterType);
+            GUILayout.Label (string.Format("Now Show Type {0}",filterType.ToString()),LabelStyle);
 			GUILayout.BeginHorizontal();
 			m_ScrollPos = GUILayout.BeginScrollView (m_ScrollPos,true,true);
 			if (MessageContainer.Count > 0) {
 				foreach (var Allmessage in MessageContainer) {
-					if (filterType.Equals (MessageTypeLevel.AllMessage) || filterType.Equals (Allmessage.m_MessageTypeLevel)) {
-						switch (Allmessage.m_MessageTypeLevel) {
-						case MessageTypeLevel.Error:
-						case MessageTypeLevel.Warning:
-							LabelStyle.normal.textColor = Color.red;
-							break;
-						case MessageTypeLevel.Exception:
-							LabelStyle.normal.textColor = Color.yellow;
-							break;
-						case MessageTypeLevel.PlayerConsole:
-							LabelStyle.normal.textColor = Color.green;
-							break;
-						default:
-							LabelStyle.normal.textColor = Color.white;
-							break;
-						}
-						GUILayout.Label (Allmessage.getMessage (), LabelStyle);
+                    if ( filterType.Equals (MessageTypeLevel.AllMessage) || filterType.Equals (Allmessage.m_MessageTypeLevel) ) {
+
+                        if (strVaule == null || !OrderDic.ContainsKey(strVaule[0]))
+                        {
+                            LabelStyle.normal.textColor = getLevelColor(Allmessage.m_MessageTypeLevel);
+                            GUILayout.Label(Allmessage.getMessage(), LabelStyle);
+                        }else if(OrderDic[strVaule[0]](strVaule,Allmessage.Message)){
+                            LabelStyle.normal.textColor = getLevelColor(Allmessage.m_MessageTypeLevel);
+                            GUILayout.Label(Allmessage.getMessage(), LabelStyle);
+                        }
+                            
 					}
 				}
 			}
@@ -173,6 +182,8 @@ public class Console : MonoBehaviour {
 			foreach (MessageTypeLevel chosetype in Enum.GetValues(typeof(MessageTypeLevel))) {
 				if (GUILayout.Button (chosetype.ToString ())) {
 					filterType = chosetype;
+                    if (strVaule != null)
+                        strVaule[0] = "";
 				}
 			}
 			GUILayout.EndVertical ();
@@ -197,6 +208,34 @@ public class Console : MonoBehaviour {
 		}
          
     }
+
+    bool getstringHavestring(string[] Checkstring,string allStr){
+        if (Checkstring[0] == "")
+            return true;
+        return allStr.Contains(Checkstring[1]);
+    }
+
+    Color getLevelColor(MessageTypeLevel typelevel){
+        Color turnColor= Color.white;;
+        switch (typelevel)
+        {
+            case MessageTypeLevel.Error:
+            case MessageTypeLevel.Warning:
+                turnColor= Color.red;
+                break;
+            case MessageTypeLevel.Exception:
+                turnColor= Color.yellow;
+                break;
+            case MessageTypeLevel.PlayerConsole:
+                turnColor= Color.green;
+                break;
+            default:
+                turnColor = Color.white;
+                break;
+        }
+        return turnColor;
+    }
+
     int pointadd = 0;
     public void ChickAdd(){
         pointadd++;
@@ -209,6 +248,7 @@ public class Console : MonoBehaviour {
         if (PlayerCall.Equals(""))
             return;
         MessageContainer.Add(new MessageData(PlayerCall, MessageTypeLevel.PlayerConsole));
+        strVaule = PlayerCall.Split(' ');
         PlayerCall = "";
     }
 
