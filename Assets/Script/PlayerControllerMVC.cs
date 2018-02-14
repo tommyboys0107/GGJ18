@@ -90,6 +90,12 @@ namespace CliffLeeCL
                 }
                 playerCanvas.arrowFilled.fillAmount = currentPushForce / model.maxPushForce;
             }
+
+            if(ball.BallTypeProperty == Ball.BallType.PLAYER1 && ball.ballSprite.color != ColorMap.Player1)
+                Debug.LogError("Player 1 color error!");
+
+            if (ball.BallTypeProperty == Ball.BallType.PLAYER2 && ball.ballSprite.color != ColorMap.Player2)
+                Debug.LogError("Player 2 color error!");
         }
 
         /// <summary>
@@ -178,20 +184,22 @@ namespace CliffLeeCL
                         case Ball.BallType.NONE:
                         case Ball.BallType.PLAYER1ALLY:
                         case Ball.BallType.PLAYER2ALLY:
-                            Debug.Log("Collision: P1 (R) to non-player.");
+                            Debug.Log("<color=red>" + "---- Collision: P1 (R) to non-player. ----" + "</color>");
                             ball.BallTypeProperty = Ball.BallType.PLAYER1ALLY;
                             objBall.BallTypeProperty = Ball.BallType.PLAYER1;
                             ball.UpdateBallFace();
                             objBall.UpdateBallFace();
+                            Debug.Log("Update ball faces.");
                             ball.UpdateBallFaceCollision();
                             objBall.UpdateBallFaceCollision();
+                            Debug.Log("Update ball faces collision.");
                             Instantiate(collisionParticlePrefab, ball.transform);
                             ChangeOwner(obj);
                             oldBall = ball;
                             ball = objBall;
                             break;
                         case Ball.BallType.PLAYER2:
-                            Debug.Log("Collision: P1 (R) to P2 (B).");
+                            Debug.Log("<color=red>" + "---- Collision: P1 (R) to P2 (B). ----" + "</color>");
                             Instantiate(collisionParticlePrefab, ball.transform);
                             ChangePlayer(obj);
                             oldBall = ball;
@@ -207,22 +215,25 @@ namespace CliffLeeCL
                         case Ball.BallType.NONE:
                         case Ball.BallType.PLAYER1ALLY:
                         case Ball.BallType.PLAYER2ALLY:
-                            Debug.Log("Collision: P2 (B) to non-player.");
+                            Debug.Log("<color=red>" + "---- Collision: P2 (B) to non-player. ----" + "</color>");
                             ball.BallTypeProperty = Ball.BallType.PLAYER2ALLY;
                             objBall.BallTypeProperty = Ball.BallType.PLAYER2;
                             ball.UpdateBallFace();
                             objBall.UpdateBallFace();
+                            Debug.Log("Update ball faces.");
                             ball.UpdateBallFaceCollision();
                             objBall.UpdateBallFaceCollision();
+                            Debug.Log("Update ball faces collision.");
                             Instantiate(collisionParticlePrefab, ball.transform);
                             ChangeOwner(obj);
                             oldBall = ball;
                             ball = objBall;
                             break;
                         case Ball.BallType.PLAYER1:
-                            Debug.Log("Collision: P2 (B) to P1 (R).");
+                            Debug.Log("<color=red>" + "---- Collision: P2 (B) to P1 (R). ----" + "</color>");
                             Instantiate(collisionParticlePrefab, ball.transform);
                             ChangePlayer(obj);
+                            Debug.Log("Change players.");
                             oldBall = ball;
                             ball = objBall;
                             GameControl.Instance.IsPlayerSwapped = IsPlayerSwapped();
@@ -231,6 +242,9 @@ namespace CliffLeeCL
                             break;
 
                     }
+                ball.UpdateBallFace();
+                objBall.UpdateBallFace();
+                Debug.Log("Update ball faces.");
             }
             else
             {
