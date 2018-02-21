@@ -137,6 +137,7 @@ public class TimeUIControl : MonoBehaviour {
     bool firs = true;
     public void setTime(float Addtime,float MaxTimef){
         float time = (Addtime > MaxTimef)?MaxTimef :Addtime/ MaxTimef;
+        //Debug.Log(MaxTimef+" "+Addtime);
         if(firs && MaxTimef-Addtime<5){
             MusicControal.Instance.PlayerSounder(MusicTypeChose.FivesSound);
             firs = false;

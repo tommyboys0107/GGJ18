@@ -213,6 +213,8 @@ public class GameControl : SingletonMono<GameControl> {
         int player1Score = 0;
         int player2Score = 0;
 
+        MusicControal.Instance.PlayerSounder(MusicTypeChose.EndGameSound);
+
         ComputePlayerScore(out player1Score, out player2Score);
         GameEnd(player1Score, player2Score);
         isGameStarted = false;
@@ -406,7 +408,7 @@ public class MusicControal:Singleton<MusicControal>{
 			case MusicTypeChose.MainSound:
 			case MusicTypeChose.GameStartSound:
 			case MusicTypeChose.RomanceSound:
-			case MusicTypeChose.EndGameSound:
+			
 			case MusicTypeChose.PeaceEndSound:
                 GameControl.Instance.AudioAll[0].clip = use;
                 GameControl.Instance.AudioAll[0].Play();
@@ -431,6 +433,7 @@ public class MusicControal:Singleton<MusicControal>{
                 GameControl.Instance.AudioAll[3].clip = use;
                 GameControl.Instance.AudioAll[3].Play();
 			break;
+            case MusicTypeChose.EndGameSound:
 			case MusicTypeChose.FivesSound:
                 GameControl.Instance.AudioAll[4].clip = use;
                 GameControl.Instance.AudioAll[4].Play();
