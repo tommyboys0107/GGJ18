@@ -193,18 +193,18 @@ namespace CliffLeeCL
                             ball.UpdateBallFaceCollision();
                             objBall.UpdateBallFaceCollision();
                             Debug.Log("Update ball faces collision.");
-                            Instantiate(collisionParticlePrefab, ball.transform);
                             ChangeOwner(obj);
                             oldBall = ball;
                             ball = objBall;
+                            Instantiate(collisionParticlePrefab, ball.transform);
                             break;
                         case Ball.BallType.PLAYER2:
                             Debug.Log("<color=red>" + "---- Collision: P1 (R) to P2 (B). ----" + "</color>");
-                            Instantiate(collisionParticlePrefab, ball.transform);
                             ChangePlayer(obj);
                             oldBall = ball;
                             ball = objBall;
                             GameControl.Instance.IsPlayerSwapped = IsPlayerSwapped();
+                            Instantiate(collisionParticlePrefab, ball.transform);
                             break;
                         default:
                             break;
@@ -224,19 +224,19 @@ namespace CliffLeeCL
                             ball.UpdateBallFaceCollision();
                             objBall.UpdateBallFaceCollision();
                             Debug.Log("Update ball faces collision.");
-                            Instantiate(collisionParticlePrefab, ball.transform);
                             ChangeOwner(obj);
                             oldBall = ball;
                             ball = objBall;
+                            Instantiate(collisionParticlePrefab, ball.transform);
                             break;
                         case Ball.BallType.PLAYER1:
                             Debug.Log("<color=red>" + "---- Collision: P2 (B) to P1 (R). ----" + "</color>");
-                            Instantiate(collisionParticlePrefab, ball.transform);
                             ChangePlayer(obj);
                             Debug.Log("Change players.");
                             oldBall = ball;
                             ball = objBall;
                             GameControl.Instance.IsPlayerSwapped = IsPlayerSwapped();
+                            Instantiate(collisionParticlePrefab, ball.transform);
                             break;
                         default:
                             break;
